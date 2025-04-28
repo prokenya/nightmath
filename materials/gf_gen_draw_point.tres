@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dlryn5wgq7nec"]
+
+[ext_resource type="Texture2D" uid="uid://bqtfe1drnqfnu" path="res://textures/exp_tex/Flare00.PNG" id="1_xgr4w"]
+
+[resource]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 0.431373, 1)
+albedo_texture = ExtResource("1_xgr4w")
+billboard_mode = 1
+billboard_keep_scale = true
+grow_amount = 6.33

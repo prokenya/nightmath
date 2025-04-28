@@ -1,0 +1,376 @@
+[gd_scene load_steps=17 format=3 uid="uid://ba0c673pkere7"]
+
+[ext_resource type="Script" uid="uid://b38fgumr5okem" path="res://scripts/GUI.gd" id="1_366xt"]
+[ext_resource type="PackedScene" uid="uid://d0myxgmrgyquy" path="res://scen/gui/inventory.tscn" id="2_li0oh"]
+[ext_resource type="Theme" uid="uid://bg8fsepfigyn0" path="res://theme/base_opt.tres" id="2_rh2mb"]
+[ext_resource type="Texture2D" uid="uid://de50j38h6e63w" path="res://textures/icons/jump.svg" id="3_t8r2j"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="4_csjpt"]
+[ext_resource type="Texture2D" uid="uid://rhoct14xvu8x" path="res://textures/icons/use.svg" id="4_h4qfs"]
+[ext_resource type="Texture2D" uid="uid://knhj13vejows" path="res://textures/icons/open.svg" id="5_esmm3"]
+[ext_resource type="Texture2D" uid="uid://csnlfmskjq0tx" path="res://textures/GUI/Gear.svg" id="6_xcywt"]
+[ext_resource type="Script" uid="uid://cpnfon0xr6q4r" path="res://DEBUG/enemy_control.gd" id="9_nh1px"]
+[ext_resource type="Texture2D" uid="uid://su3mnnsaevll" path="res://textures/GUI/F-Key.png" id="10_jwnnb"]
+[ext_resource type="Texture2D" uid="uid://c2mpkqyte4ee3" path="res://textures/GUI/E-Key.png" id="11_tpx2w"]
+[ext_resource type="Shader" uid="uid://bq043taq4hfcf" path="res://shaders/pixelate.gdshader" id="12_mytvw"]
+
+[sub_resource type="GDScript" id="GDScript_5u52p"]
+script/source = "extends Button
+
+var a: bool = true
+
+
+func _on_pressed():
+	if a:
+		$\"..\".modulate.a = 0.00
+	else:
+		$\"..\".modulate.a = 1.00
+	a = !a
+"
+
+[sub_resource type="GDScript" id="GDScript_26y8o"]
+script/source = "extends \"res://scripts/sfx_button.gd\"
+
+
+
+func _on_pressed():
+	Event.emit_signal(\"menu\")
+"
+
+[sub_resource type="GDScript" id="GDScript_x21m7"]
+script/source = "extends Label
+
+@onready var fps_label := %Label
+var counter := 0.0
+
+func _process(delta: float) -> void:
+	counter += delta
+	# Hide FPS label until it's initially updated by the engine (this can take up to 1 second).
+	fps_label.visible = counter >= 1.0
+	fps_label.text = \"%d FPS (%.2f mspf)\" % [Engine.get_frames_per_second(), 1000.0 / Engine.get_frames_per_second()]
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_te3wq"]
+shader = ExtResource("12_mytvw")
+shader_parameter/pixel_size = 1
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_366xt")
+
+[node name="hp" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_right = 128.0
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_vertical = 0
+theme = ExtResource("2_rh2mb")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "HP:100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.196078)
+position = Vector2(-216, -224)
+scale = Vector2(0.461538, 0.461539)
+texture_normal = ExtResource("3_t8r2j")
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0.2)
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 192.0
+alignment = 1
+
+[node name="fire" type="TouchScreenButton" parent="VBoxContainer2"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.588235)
+scale = Vector2(0.461538, 0.461538)
+texture_normal = ExtResource("5_esmm3")
+
+[node name="useitem" type="TouchScreenButton" parent="VBoxContainer2"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(192, 0)
+scale = Vector2(0.461538, 0.461538)
+texture_normal = ExtResource("4_h4qfs")
+
+[node name="Virtual Joystick" parent="." instance=ExtResource("4_csjpt")]
+layout_mode = 1
+offset_top = -328.0
+offset_right = 320.0
+offset_bottom = 0.0
+pressed_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
+deadzone_size = 1.0
+clampzone_size = 125.0
+
+[node name="Button" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.694
+anchor_right = 0.694
+offset_left = -31.488
+offset_right = 32.512
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 35
+text = "hui"
+script = SubResource("GDScript_5u52p")
+
+[node name="menu2" type="TextureButton" parent="."]
+visibility_layer = 15
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 62.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_rh2mb")
+button_mask = 7
+texture_normal = ExtResource("6_xcywt")
+texture_pressed = ExtResource("6_xcywt")
+texture_hover = ExtResource("6_xcywt")
+texture_disabled = ExtResource("6_xcywt")
+texture_focused = ExtResource("6_xcywt")
+stretch_mode = 0
+script = SubResource("GDScript_26y8o")
+
+[node name="Control" parent="." instance=ExtResource("2_li0oh")]
+top_level = true
+layout_mode = 1
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = -64.0
+offset_right = 0.0
+offset_bottom = -64.0
+grow_vertical = 0
+
+[node name="pick_up" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0.411765)
+top_level = true
+light_mask = 3
+visibility_layer = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 60.0
+offset_right = 64.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 1
+theme = ExtResource("2_rh2mb")
+theme_override_font_sizes/font_size = 35
+button_mask = 7
+text = "pick_up"
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = 64.0
+offset_bottom = 128.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 25
+script = SubResource("GDScript_x21m7")
+
+[node name="pos" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.806
+anchor_right = 0.806
+offset_left = -96.5121
+offset_right = 159.488
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_vertical = 0
+theme = ExtResource("2_rh2mb")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "pos()"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ENEMY_CONTROL" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -59.0
+offset_top = 65.0
+offset_right = 59.0
+offset_bottom = 105.0
+grow_horizontal = 2
+script = ExtResource("9_nh1px")
+
+[node name="STATE" type="OptionButton" parent="ENEMY_CONTROL"]
+layout_mode = 2
+focus_mode = 0
+item_count = 5
+popup/item_0/text = "IDLE"
+popup/item_0/id = 0
+popup/item_1/text = "WALK"
+popup/item_1/id = 1
+popup/item_2/text = "RUN"
+popup/item_2/id = 2
+popup/item_3/text = "SITTING"
+popup/item_3/id = 3
+popup/item_4/text = "CROWLING"
+popup/item_4/id = 4
+
+[node name="ONESHOT STATE" type="OptionButton" parent="ENEMY_CONTROL"]
+layout_mode = 2
+focus_mode = 0
+item_count = 5
+popup/item_0/text = "HIT"
+popup/item_0/id = 0
+popup/item_1/text = "OPEN_DOOR"
+popup/item_1/id = 1
+popup/item_2/text = "STAND_TO_SIT"
+popup/item_2/id = 2
+popup/item_3/text = "SIT_TO_STAND"
+popup/item_3/id = 3
+popup/item_4/text = "SLEEP"
+popup/item_4/id = 4
+
+[node name="kill ai" type="CheckButton" parent="ENEMY_CONTROL"]
+layout_mode = 2
+focus_mode = 0
+text = "KILL AI?"
+
+[node name="kill vis" type="CheckButton" parent="ENEMY_CONTROL"]
+layout_mode = 2
+focus_mode = 0
+text = "REMOVE VISION?"
+
+[node name="hints" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0.458824)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = 60.0
+offset_right = 88.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hint1" type="TextureRect" parent="hints"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("10_jwnnb")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="hint2" type="TextureRect" parent="hints"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("11_tpx2w")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="item_name" type="Label" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_rh2mb")
+theme_override_font_sizes/font_size = 35
+
+[node name="shaders" type="CanvasLayer" parent="."]
+layer = -10
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="shaders"]
+material = SubResource("ShaderMaterial_te3wq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sight" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/TouchScreenButton" to="." method="_on_touch_screen_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/fire" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="VBoxContainer2/useitem" to="." method="_on_useitem_pressed"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="pressed" from="menu2" to="menu2" method="_on_pressed"]
+[connection signal="pressed" from="pick_up" to="." method="_on_pick_up_pressed"]
+[connection signal="item_selected" from="ENEMY_CONTROL/STATE" to="ENEMY_CONTROL" method="_on_state_item_selected"]
+[connection signal="item_selected" from="ENEMY_CONTROL/ONESHOT STATE" to="ENEMY_CONTROL" method="_on_oneshot_state_item_selected"]
+[connection signal="toggled" from="ENEMY_CONTROL/kill ai" to="ENEMY_CONTROL" method="_on_kill_ai_toggled"]
+[connection signal="toggled" from="ENEMY_CONTROL/kill vis" to="ENEMY_CONTROL" method="_on_kill_vis_toggled"]

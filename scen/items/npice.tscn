@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://cq3t6hlhu5x0a"]
+
+[ext_resource type="Texture2D" uid="uid://bd77q088mfnsh" path="res://models/Textures/Paper.jpg" id="2_o25dh"]
+
+[sub_resource type="GDScript" id="GDScript_6wq0n"]
+script/source = "@tool
+extends \"res://scripts/world_item.gd\"
+@onready var label_3d: Label3D = $CollisionShape3D/MeshInstance3D/Label3D
+
+func _ready():
+	if has_audio:
+		self.contact_monitor = true
+		self.max_contacts_reported = 1
+		self.continuous_cd = true
+		audio_player.max_distance = 100
+		audio_player.bus = \"SFX\"
+		add_child(audio_player)
+		self.connect(\"body_entered\",_on_body_entered)
+	label_3d.text = text
+
+@export var text: String = \"null \\n null\" :
+	get:
+		return text
+	set(value):
+		text = str(value).replace(\"\\\\n\", \"\\n\")
+		if label_3d:
+			label_3d.text = tr(text)
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aqvuv"]
+size = Vector3(0.72, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gccmp"]
+albedo_texture = ExtResource("2_o25dh")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ey0m6"]
+lightmap_size_hint = Vector2i(7, 19)
+add_uv2 = true
+size = Vector3(0.675, 0.99, 0.005)
+
+[node name="npice" type="RigidBody3D"]
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 1
+script = SubResource("GDScript_6wq0n")
+item_id = 10
+item_name = "$CollisionShape3D/MeshInstance3D/Label3D"
+custom_properties = ["text"]
+current_stream = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.52, 0, 0, 0, 0.52, 0, 0, 0, 0.52, 0, 0, 0)
+shape = SubResource("BoxShape3D_aqvuv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_gccmp")
+gi_mode = 2
+mesh = SubResource("BoxMesh_ey0m6")
+skeleton = NodePath("../..")
+
+[node name="Label3D" type="Label3D" parent="CollisionShape3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -3.17583e-10, -0.00726545)
+modulate = Color(0, 0, 0, 1)
+text = "null 
+ null"
+outline_size = 0
+width = 140.0

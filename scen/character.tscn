@@ -1,0 +1,369 @@
+[gd_scene load_steps=34 format=3 uid="uid://m6cpbilj2lg6"]
+
+[ext_resource type="Script" uid="uid://bak162qhuylmi" path="res://scripts/character.gd" id="1_hwfqd"]
+[ext_resource type="Script" uid="uid://38wx80rxnylf" path="res://addons/shaker/src/Vector3/shaker_component3D.gd" id="2_h326c"]
+[ext_resource type="Texture2D" uid="uid://varw4lx87ems" path="res://textures/1182467.160.webp" id="2_q7m3t"]
+[ext_resource type="Resource" uid="uid://bgwupdyecxqic" path="res://addons/shaker/data/resources/shaker_head_blob3D.tres" id="3_82qr5"]
+[ext_resource type="Theme" uid="uid://bg8fsepfigyn0" path="res://theme/base_opt.tres" id="3_ch1nh"]
+[ext_resource type="Script" uid="uid://rbwyu1m0xbh" path="res://addons/shaker/src/Vector3/ShakerReceiver3D.gd" id="4_of5k6"]
+[ext_resource type="PackedScene" uid="uid://cqn6qgtemelvm" path="res://scen/gui/base_opt.tscn" id="5_dm75i"]
+[ext_resource type="AudioStream" uid="uid://xnhwldmiuffj" path="res://audio/sfx/Interface_Bleeps_OGG/Bleep_02.ogg" id="7_j1dkv"]
+[ext_resource type="Texture2D" uid="uid://csnlfmskjq0tx" path="res://textures/GUI/Gear.svg" id="8_d5fic"]
+[ext_resource type="PackedScene" uid="uid://dexedy1bup8vh" path="res://scen/gui/dialog.tscn" id="8_jes0e"]
+[ext_resource type="AudioStream" uid="uid://bik756anck7vh" path="res://audio/sfx/Footsteps/FootstepsConcrete1.wav" id="9_hgfpo"]
+[ext_resource type="AudioStream" uid="uid://dturv41c31gue" path="res://audio/sfx/Footsteps/FootstepsConcrete2.wav" id="10_7kds8"]
+[ext_resource type="Script" uid="uid://beryics0aw8c" path="res://scripts/warnings_iteractions.gd" id="11_wswnd"]
+[ext_resource type="AudioStream" uid="uid://cq2knypr5m55o" path="res://audio/sfx/Footsteps/FootstepsConcrete3.wav" id="11_yjfrb"]
+[ext_resource type="AudioStream" uid="uid://2loviwuv3wdh" path="res://audio/sfx/EatingFood3.wav" id="12_88pu2"]
+[ext_resource type="AudioStream" uid="uid://c3mj02auo01wt" path="res://audio/sfx/Footsteps/FootstepsConcrete4.wav" id="12_j0j7j"]
+[ext_resource type="Texture2D" uid="uid://c7t3yxrfhu180" path="res://textures/GUI/Tick.svg" id="12_kjnne"]
+[ext_resource type="FontFile" uid="uid://up2o2ylbi16n" path="res://addons/MultiplayCore/fonts/VictorMono-Medium.ttf" id="12_q6121"]
+[ext_resource type="AudioStream" uid="uid://3myxn1aftmdc" path="res://audio/sfx/off.ogg" id="12_sou5u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v4cbk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0xdd3"]
+lightmap_size_hint = Vector2i(17, 14)
+add_uv2 = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_62ru4"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_mahwd"]
+auto_exposure_scale = 1.2
+auto_exposure_speed = 64.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5m22"]
+albedo_texture = ExtResource("2_q7m3t")
+uv1_scale = Vector3(1.705, 1.705, 1.705)
+
+[sub_resource type="GDScript" id="GDScript_xwmwt"]
+script/source = "extends \"res://scripts/sfx_button.gd\"
+
+
+
+func _on_pressed():
+	Event.Eswitch_scene(\"res://scen/gui/menu.tscn\",false)
+"
+
+[sub_resource type="GDScript" id="GDScript_leea8"]
+script/source = "extends \"res://scripts/sfx_button.gd\"
+
+
+
+func _on_pressed():
+	Event.emit_signal(\"menu\")
+"
+
+[sub_resource type="Animation" id="Animation_d8ouq"]
+resource_name = "damag"
+length = 5.0
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/playeranim_gui/ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 2.85714, 4.71429),
+"transitions": PackedFloat32Array(0.125, 0.707111, 0.707111, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8g1y3"]
+_data = {
+&"damag": SubResource("Animation_d8ouq")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2ysn1"]
+playback_mode = 1
+random_volume_offset_db = 0.4
+streams_count = 4
+stream_0/stream = ExtResource("9_hgfpo")
+stream_1/stream = ExtResource("10_7kds8")
+stream_2/stream = ExtResource("11_yjfrb")
+stream_3/stream = ExtResource("12_j0j7j")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tdt8x"]
+properties/0/path = NodePath("..:control_item_id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("..:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("..:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("../Node3D:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5qatl"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_kfl8u"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_mhmcn"]
+clip_count = 2
+clip_0/name = &"Off"
+clip_0/stream = ExtResource("12_sou5u")
+clip_0/auto_advance = 0
+clip_1/name = &"Eating"
+clip_1/stream = ExtResource("12_88pu2")
+clip_1/auto_advance = 0
+
+[node name="player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+collision_layer = 7
+script = ExtResource("1_hwfqd")
+metadata/_edit_group_ = true
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_v4cbk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+layers = 65537
+gi_mode = 2
+visibility_range_begin = 2.0
+mesh = SubResource("CapsuleMesh_0xdd3")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ShakerComponent3D" type="Node3D" parent="Node3D" node_paths=PackedStringArray("Targets")]
+script = ExtResource("2_h326c")
+custom_target = true
+Targets = [NodePath("../Camera3D")]
+randomize = true
+AutoPlay = true
+shakerPreset = ExtResource("3_82qr5")
+
+[node name="ShakerReceiver3D" type="Node3D" parent="Node3D/ShakerComponent3D"]
+script = ExtResource("4_of5k6")
+
+[node name="Area3D" type="Area3D" parent="Node3D/ShakerComponent3D/ShakerReceiver3D"]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/ShakerComponent3D/ShakerReceiver3D/Area3D"]
+shape = SubResource("CapsuleShape3D_62ru4")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0699295, 0.146376, 0)
+cull_mask = 983039
+attributes = SubResource("CameraAttributesPractical_mahwd")
+
+[node name="RayCast3D" type="RayCast3D" parent="Node3D/Camera3D"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, -0.243)
+target_position = Vector3(0, 3, 0)
+collision_mask = 8388615
+hit_back_faces = false
+
+[node name="hand_dis" type="RayCast3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.361, 0, -0.328534)
+target_position = Vector3(0, 0, -1.3)
+
+[node name="hand" type="Node3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.361, 0, -0.694)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Node3D"]
+transform = Transform3D(0.445573, 0, 0.895246, 0, 1, 0, -0.895246, 0, 0.445573, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_h5m22")
+
+[node name="step_interval" type="Timer" parent="Node3D"]
+wait_time = 0.4
+one_shot = true
+autostart = true
+
+[node name="Control_charapter" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ui_b" parent="Control_charapter" instance=ExtResource("5_dm75i")]
+visible = false
+
+[node name="back" type="Button" parent="Control_charapter/ui_b"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -192.0
+offset_right = -131.0
+offset_bottom = 64.0
+grow_horizontal = 0
+scale = Vector2(2.12, 1)
+size_flags_horizontal = 8
+size_flags_vertical = 4
+button_mask = 7
+text = "quit"
+script = SubResource("GDScript_xwmwt")
+stream = ExtResource("7_j1dkv")
+
+[node name="menu2" type="TextureButton" parent="Control_charapter/ui_b"]
+visibility_layer = 15
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 64.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("3_ch1nh")
+button_mask = 7
+texture_normal = ExtResource("8_d5fic")
+texture_pressed = ExtResource("8_d5fic")
+texture_hover = ExtResource("8_d5fic")
+texture_disabled = ExtResource("8_d5fic")
+texture_focused = ExtResource("8_d5fic")
+stretch_mode = 0
+script = SubResource("GDScript_leea8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control_charapter"]
+layer = -128
+
+[node name="playeranim_gui" type="AnimationPlayer" parent="Control_charapter/CanvasLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_8g1y3")
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Control_charapter/CanvasLayer/playeranim_gui"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="gui" type="CanvasLayer" parent="Control_charapter"]
+
+[node name="dialogue" parent="Control_charapter" instance=ExtResource("8_jes0e")]
+visible = false
+
+[node name="AudioStreamPlayer" parent="Control_charapter/dialogue" index="0"]
+volume_db = 5.0
+
+[node name="warnings_iteractions" type="CanvasLayer" parent="Control_charapter"]
+layer = 128
+visible = false
+script = ExtResource("11_wswnd")
+
+[node name="Control" type="Control" parent="Control_charapter/warnings_iteractions"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_ch1nh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control_charapter/warnings_iteractions/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.5
+offset_top = -76.0
+offset_right = 211.5
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="author" type="Label" parent="Control_charapter/warnings_iteractions/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("12_q6121")
+theme_override_font_sizes/font_size = 60
+text = "author"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control_charapter/warnings_iteractions/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="TextureButton" parent="Control_charapter/warnings_iteractions/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("12_kjnne")
+texture_pressed = ExtResource("12_kjnne")
+texture_hover = ExtResource("12_kjnne")
+texture_disabled = ExtResource("12_kjnne")
+texture_focused = ExtResource("12_kjnne")
+stretch_mode = 3
+
+[node name="LineEdit" type="LineEdit" parent="Control_charapter/warnings_iteractions/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ch1nh")
+theme_override_font_sizes/font_size = 100
+placeholder_text = "pasword"
+alignment = 1
+expand_to_text_length = true
+
+[node name="Label" type="Label" parent="Control_charapter/warnings_iteractions/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_v4cbk")
+
+[node name="footstep" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_2ysn1")
+volume_db = 0.05
+bus = &"SFX"
+
+[node name="name" type="Label3D" parent="."]
+transform = Transform3D(2.765, 0, 0, 0, 2.765, 0, 0, 0, 2.765, 0, 1.8396, 0)
+visibility_range_begin = 0.45
+billboard = 1
+text = "m,jkm"
+
+[node name="mps" type="Node3D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="mps"]
+_spawnable_scenes = PackedStringArray("uid://mng6jc7m5tnd", "uid://euo6v66j3nfb", "uid://bucpmsld8pkux", "uid://bkmn3fni2q3pg")
+spawn_path = NodePath("../../Node3D/hand")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="mps"]
+replication_config = SubResource("SceneReplicationConfig_tdt8x")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.974682, 0)
+shape = SubResource("SphereShape3D_5qatl")
+
+[node name="st" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.276277, -0.76)
+shape = SubResource("SeparationRayShape3D_kfl8u")
+disabled = true
+
+[node name="pick_st" type="RayCast3D" parent="st"]
+target_position = Vector3(0, 0, 1)
+collision_mask = 128
+
+[node name="AStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamInteractive_mhmcn")
+autoplay = true
+bus = &"SFX"
+
+[connection signal="timeout" from="Node3D/step_interval" to="." method="_on_step_interval_timeout"]
+[connection signal="pressed" from="Control_charapter/ui_b/back" to="Control_charapter/ui_b/back" method="_on_pressed"]
+[connection signal="pressed" from="Control_charapter/ui_b/menu2" to="Control_charapter/ui_b/menu2" method="_on_pressed"]
+[connection signal="button_up" from="Control_charapter/warnings_iteractions/Control/VBoxContainer/HBoxContainer/Button" to="Control_charapter/warnings_iteractions" method="_on_button_button_up"]
+[connection signal="text_submitted" from="Control_charapter/warnings_iteractions/Control/VBoxContainer/HBoxContainer/LineEdit" to="Control_charapter/warnings_iteractions" method="_on_line_edit_text_submitted"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
+[connection signal="finished" from="footstep" to="footstep" method="_on_finished"]
+
+[editable path="Control_charapter/dialogue"]

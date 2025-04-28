@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CharacterList" load_steps=7 format=3 uid="uid://f8pqp4v7t5v2"]
+
+[ext_resource type="Script" uid="uid://by8vyu82plcd0" path="res://addons/dialogue_nodes/objects/Character.gd" id="1_voarq"]
+[ext_resource type="Script" uid="uid://b5kur4ok51j87" path="res://addons/dialogue_nodes/objects/CharacterList.gd" id="2_byhhy"]
+[ext_resource type="Texture2D" uid="uid://bju2pir7em7lb" path="res://dialogue/avatar_yellow_frame.png" id="2_dounm"]
+[ext_resource type="Texture2D" uid="uid://c2er7g7oti0j1" path="res://dialogue/player.PNG" id="2_o66mp"]
+
+[sub_resource type="Resource" id="1"]
+script = ExtResource("1_voarq")
+name = "user"
+image = ExtResource("2_o66mp")
+color = Color(0, 0.964706, 0.647059, 1)
+
+[sub_resource type="Resource" id="2"]
+script = ExtResource("1_voarq")
+name = "LEo"
+image = ExtResource("2_dounm")
+color = Color(0.645551, 1.82897e-06, 3.36915e-07, 1)
+
+[resource]
+script = ExtResource("2_byhhy")
+characters = Array[ExtResource("1_voarq")]([SubResource("1"), SubResource("2")])
+metadata/Name = "mklio"

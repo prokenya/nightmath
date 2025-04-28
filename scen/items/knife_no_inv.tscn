@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://6cil5ku0g4tq"]
+
+[ext_resource type="PackedScene" uid="uid://b5wwq2xkywwih" path="res://models/knife.fbx" id="1_phcyd"]
+
+[node name="knife" type="Node3D"]
+
+[node name="knife" parent="." instance=ExtResource("1_phcyd")]
+transform = Transform3D(3, 0, 0, 0, -1.31134e-07, -3, 0, 3, -1.31134e-07, 0, 0, 0)

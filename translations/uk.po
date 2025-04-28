@@ -1,0 +1,177 @@
+# LANGUAGE translation for 3n for the following files:
+# res://scen/gui/menu.tscn
+# res://scen/gui/character_gui.tscn
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 3n\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+
+#: scen/gui/menu.tscn
+msgid "multiplayer"
+msgstr ""
+
+#: scen/gui/menu.tscn
+msgid "play"
+msgstr "грати"
+
+#: scen/gui/menu.tscn
+msgid "settings"
+msgstr "налаштування"
+
+#: scen/gui/menu.tscn
+msgid "credits"
+msgstr "титри"
+
+#: scen/gui/menu.tscn
+msgid "your name"
+msgstr "твоє ім'я"
+
+#: scen/gui/menu.tscn
+msgid "en"
+msgstr ""
+
+#: scen/gui/menu.tscn
+msgid "ru"
+msgstr ""
+
+#: scen/gui/menu.tscn
+msgid "uk"
+msgstr ""
+
+#: scen/gui/menu.tscn
+msgid "Write your name!"
+msgstr "Напиши своє ім'я!"
+
+#: scen/gui/menu.tscn
+msgid "select level"
+msgstr ""
+
+#: scen/gui/menu.tscn
+msgid "base_world_prefs"
+msgstr ""
+
+#: scen/gui/menu.tscn
+msgid "devolopers"
+msgstr "розробники"
+
+#: scen/gui/menu.tscn
+msgid ""
+"devoloper:\n"
+"@prokenya\n"
+msgstr ""
+"розробник:\n"
+"@prokenya\n"
+
+#: scen/gui/menu.tscn
+msgid ""
+"testers:\n"
+"@alekqq\n"
+"@alexeyprogamer"
+msgstr ""
+"тестувальники:\n"
+"@alekqq\n"
+"@alexeyprogamer"
+
+#: scen/gui/menu.tscn
+msgid "menu sfx by"
+msgstr "menu sfx by"
+
+#: scen/gui/menu.tscn
+msgid "bleeoop"
+msgstr "bleeoop"
+
+#: scen/gui/menu.tscn
+msgid "created on the basis of watermelon game 0.2.9"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "HP:100"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "hui"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "pick_up"
+msgstr "підібрати"
+
+#: scen/gui/character_gui.tscn
+msgid "pos()"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "IDLE"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "WALK"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "RUN"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "SITTING"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "CROWLING"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "HIT"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "OPEN_DOOR"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "STAND_TO_SIT"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "SIT_TO_STAND"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "SLEEP"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "KILL AI?"
+msgstr ""
+
+#: scen/gui/character_gui.tscn
+msgid "REMOVE VISION?"
+msgstr ""
+
+#: scen/items/npice.tscn scen/items/inventory/npice_inv.tscn
+msgid "hello"
+msgstr "привіт"
+
+#: scen/items/npice.tscn scen/items/inventory/npice_inv.tscn
+msgid "he's giving\nthe good students\na chance"
+msgstr "Він дає\nхорошим учням\nшанс."
+
+#: scen/items/npice.tscn scen/items/inventory/npice_inv.tscn
+msgid "exit door\ncode is\n\«2+2»"
+msgstr "Код від \nдверей \nвиходу \n«2+2»."
+
+#: scen/items/npice.tscn scen/items/inventory/npice_inv.tscn
+msgid "go through the door\ngo through the door\nÂîçìîæíî, äà."
+msgstr "йди через двері\nйди через двері\nÂîçìîæíî, äà."

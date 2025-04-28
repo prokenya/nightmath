@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn4rueppeyhhu"]
+
+[ext_resource type="AudioStream" uid="uid://bakxacgwhdc44" path="res://audio/sfx/run-grass.wav" id="1_wu5xe"]
+[ext_resource type="PackedScene" uid="uid://blfs7p0007hru" path="res://scen/gui/credits.tscn" id="2_cwy6q"]
+
+[sub_resource type="GDScript" id="GDScript_cwy6q"]
+script/source = "extends Control
+
+@onready var credits: Control = $credits
+
+var tween
+func _on_audio_stream_player_finished() -> void:
+	tween = create_tween()
+	tween.tween_property(credits,\"modulate\",Color(\"#ffffff\"),3)
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_cwy6q")
+
+[node name="credits" parent="." instance=ExtResource("2_cwy6q")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_wu5xe")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

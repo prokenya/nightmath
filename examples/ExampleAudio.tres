@@ -1,0 +1,91 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3 uid="uid://c4ay241u6mexj"]
+
+[ext_resource type="Script" uid="uid://bsti34a5e8kg2" path="res://addons/dialogue_nodes/objects/DialogueData.gd" id="1_0oio0"]
+
+[resource]
+script = ExtResource("1_0oio0")
+starts = {
+"START": &"0_1",
+"end": &"0_2"
+}
+nodes = {
+"0_1": {
+"link": &"1_1",
+"offset": Vector2(0, 0),
+"start_id": "START"
+},
+"0_2": {
+"link": &"1_5",
+"offset": Vector2(0, 140),
+"start_id": "end"
+},
+"1_1": {
+"dialogue": "Oh hey!",
+"offset": Vector2(220, 0),
+"options": {
+0: {
+"condition": {},
+"link": &"1_2",
+"text": "z"
+}
+},
+"size": Vector2(300, 257),
+"speaker": "asf"
+},
+"1_2": {
+"dialogue": "This is an example of setting up waitaudio to play when a dialogue is playing.STARTSTART",
+"offset": Vector2(560, 0),
+"options": {
+0: {
+"condition": {},
+"link": &"1_3",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": "afas"
+},
+"1_3": {
+"dialogue": "[wait]Funny thing is, you don't have to do anything in the dialogue editor.[/wait][br]
+[wait time=5]Its just the plasignal connected in the scene's script[/wait]RichTextGhost",
+"offset": Vector2(900, 0),
+"options": {
+0: {
+"condition": {},
+"link": &"1_4",
+"text": "wait"
+}
+},
+"size": Vector2(300, 256),
+"speaker": "dsad"
+},
+"1_4": {
+"dialogue": "[wait speed=4]Also...[/wait][wait time=2] you can mess around with the wait speed and time and the sound plays accordingly![/wait]",
+"offset": Vector2(1240, 0),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 241),
+"speaker": "asda"
+},
+"1_5": {
+"dialogue": "z fapfsk fas0fk  aqnwfowfw",
+"offset": Vector2(240, 300),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": "fa"
+}
+}
+variables = {}
+strays = Array[String]([])
+characters = ""

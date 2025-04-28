@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cdnuj0epdj17u"
+path="res://.godot/imported/Fridge door_opening.wav-0d45c28ff097b9431bd2f2f46a8458f3.sample"
+
+[deps]
+
+source_file="res://audio/sfx/Fridge door_opening.wav"
+dest_files=["res://.godot/imported/Fridge door_opening.wav-0d45c28ff097b9431bd2f2f46a8458f3.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

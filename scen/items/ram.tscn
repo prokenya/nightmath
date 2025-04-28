@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://csu7hvysxkw88"]
+
+[ext_resource type="PackedScene" uid="uid://cy44fu12cf08s" path="res://models/ram.fbx" id="1_bjshb"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ram" parent="." instance=ExtResource("1_bjshb")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)

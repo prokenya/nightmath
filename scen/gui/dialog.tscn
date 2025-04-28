@@ -1,0 +1,479 @@
+[gd_scene load_steps=21 format=3 uid="uid://dexedy1bup8vh"]
+
+[ext_resource type="Theme" uid="uid://dfig4jr1ovxx5" path="res://theme/dialogue.tres" id="1_7puj3"]
+[ext_resource type="Script" uid="uid://bx4jixqs0lwyv" path="res://scripts/audioDemo.gd" id="2_2jvcg"]
+[ext_resource type="Script" uid="uid://b6jm4luvbidvt" path="res://addons/dialogue_nodes/objects/bbcodeWait.gd" id="2_435yb"]
+[ext_resource type="Texture2D" uid="uid://ceg0hrxlnee1p" path="res://textures/tasks/font.png" id="3_7lw2m"]
+[ext_resource type="Script" uid="uid://bsoif4kmmnl5u" path="res://addons/dialogue_nodes/objects/bbcodeGhost.gd" id="3_xlyqn"]
+[ext_resource type="Resource" uid="uid://cqhejoggox8lf" path="res://dialogue/dialog1.tres" id="4_5iboq"]
+[ext_resource type="Resource" uid="uid://dlg5pejoll360" path="res://dialogue/dialog1_ru.tres" id="4_m21rt"]
+[ext_resource type="Texture2D" uid="uid://varw4lx87ems" path="res://textures/1182467.160.webp" id="4_uti3i"]
+[ext_resource type="Script" uid="uid://bsbt5q6p1c1cd" path="res://addons/dialogue_nodes/objects/DialogueBox.gd" id="4_x7bn6"]
+[ext_resource type="Resource" uid="uid://xfkkgniymfpr" path="res://dialogue/dialog1_uk.tres" id="5_n6x6y"]
+[ext_resource type="Script" uid="uid://cq8v2l7miefxo" path="res://addons/dialogue_nodes/objects/bbcodeMatrix.gd" id="8_2keth"]
+[ext_resource type="Texture2D" uid="uid://ckdpa7vcw207r" path="res://textures/icons/SolidArrow-Right.svg" id="8_yeaex"]
+
+[sub_resource type="GDScript" id="GDScript_s7t3n"]
+resource_name = "audio"
+script/source = "extends AudioStreamPlayer
+
+var beep : PackedVector2Array = []
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var audio_frame_being_filled : int = 2730
+	var total_audio_frames_to_fill : int = audio_frame_being_filled
+	var beep_softener_ratio : float = 0.05
+	var sample_hz : float = 22050.0 # Keep the number of samples to mix low, GDScript is not super fast.
+	var pulse_hz : float = 440.0
+	var phase : float = 0.0
+	var increment : float = pulse_hz / sample_hz
+	while audio_frame_being_filled > 0:
+		var _ignore : bool = beep.push_back(Vector2.ONE * beep_softener_ratio * sin(phase * TAU) * audio_frame_being_filled/total_audio_frames_to_fill)
+		phase = fmod(phase + increment, 1.0)
+		audio_frame_being_filled -= 1
+
+
+func __play_sound() -> void:
+	# Create the audio stream dynamically
+	var audio_stream : AudioStreamGenerator = AudioStreamGenerator.new()
+	const mix_rate : float = 22050.0
+	audio_stream.set_mix_rate(mix_rate)
+	self.set_stream(audio_stream)
+
+
+	# Fill in the playback audio frames:
+	self.play()
+	var playback : AudioStreamGeneratorPlayback = self.get_stream_playback()
+	var total_available_frames : int = playback.get_frames_available()
+	var _success : bool = playback.push_buffer(beep)
+	var _frames_filled : int = total_available_frames - playback.get_frames_available()
+"
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_c6wh6"]
+script = ExtResource("2_435yb")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_pyhwf"]
+script = ExtResource("3_xlyqn")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_fu5un"]
+script = ExtResource("8_2keth")
+
+[sub_resource type="Animation" id="Animation_ch8by"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%font:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%font:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%font/tape1:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("%font/tape1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%font/tape2:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("%font/tape2:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jlhof"]
+resource_name = "hide"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%font:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%font:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%font/tape1:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("%font/tape1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%font/tape2:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("%font/tape2:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.0333333, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ol7p8"]
+resource_name = "show"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%font:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%TextureRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%font:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%font/tape1:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("%font/tape1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%font/tape2:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("%font/tape2:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8l81x"]
+_data = {
+&"RESET": SubResource("Animation_ch8by"),
+&"hide": SubResource("Animation_jlhof"),
+&"show": SubResource("Animation_ol7p8")
+}
+
+[node name="dilogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7puj3")
+script = ExtResource("2_2jvcg")
+dialogue_data = {
+"en": ExtResource("4_5iboq"),
+"ru": ExtResource("4_m21rt"),
+"uk": ExtResource("5_n6x6y")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = SubResource("GDScript_s7t3n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="font" type="TextureRect" parent="VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+texture = ExtResource("3_7lw2m")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/font"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.0
+offset_top = -104.0
+offset_right = 182.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+texture = ExtResource("4_uti3i")
+expand_mode = 1
+
+[node name="tape1" type="ColorRect" parent="VBoxContainer/MarginContainer/font"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 174.0
+offset_top = -134.0
+offset_right = 236.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+color = Color(0, 0.564706, 0.905882, 0.443137)
+
+[node name="tape2" type="ColorRect" parent="VBoxContainer/MarginContainer/font"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -194.0
+offset_top = 74.0
+offset_right = -132.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+color = Color(0, 0.564706, 0.905882, 0.443137)
+
+[node name="DialogueBox" type="Panel" parent="VBoxContainer"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 10
+script = ExtResource("4_x7bn6")
+data = ExtResource("4_5iboq")
+custom_effects = Array[RichTextEffect]([SubResource("RichTextEffect_c6wh6"), SubResource("RichTextEffect_pyhwf"), SubResource("RichTextEffect_fu5un")])
+next_icon = ExtResource("8_yeaex")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer"]
+libraries = {
+&"": SubResource("AnimationLibrary_8l81x")
+}
+
+[connection signal="dialogue_ended" from="VBoxContainer/DialogueBox" to="." method="_on_dialogue_box_dialogue_ended"]
+[connection signal="dialogue_signal" from="VBoxContainer/DialogueBox" to="." method="_on_dialogue_box_dialogue_signal"]
+[connection signal="animation_finished" from="VBoxContainer/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

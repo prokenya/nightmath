@@ -1,0 +1,65 @@
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bg8fsepfigyn0"]
+
+[ext_resource type="FontFile" uid="uid://xa7vene6lgxp" path="res://theme/LEngineer-Regular.otf" id="1_qwec5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wwof7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12rix"]
+bg_color = Color(0.101961, 0.113725, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlhsc"]
+bg_color = Color(0, 0.360784, 0.14902, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="ImageTexture" id="ImageTexture_qxhda"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_p40fr"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_mgmom"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ofwd"]
+bg_color = Color(0, 0, 0.815686, 1)
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04trc"]
+bg_color = Color(0, 0, 0.815686, 1)
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgsgm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsqq3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0bcxo"]
+
+[resource]
+Button/colors/font_color = Color(1, 0, 0, 1)
+Button/fonts/font = ExtResource("1_qwec5")
+Button/styles/focus = SubResource("StyleBoxEmpty_wwof7")
+Button/styles/normal = SubResource("StyleBoxFlat_12rix")
+Button/styles/pressed = SubResource("StyleBoxFlat_mlhsc")
+HSlider/icons/grabber = SubResource("ImageTexture_qxhda")
+HSlider/icons/grabber_disabled = SubResource("ImageTexture_p40fr")
+HSlider/icons/grabber_highlight = SubResource("ImageTexture_mgmom")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_2ofwd")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_04trc")
+Label/colors/font_color = Color(0.749897, 0.970304, 0, 1)
+Label/fonts/font = ExtResource("1_qwec5")
+LineEdit/fonts/font = ExtResource("1_qwec5")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_lgsgm")
+OptionButton/colors/font_color = Color(0.280427, 1, 0.897348, 1)
+OptionButton/colors/font_hover_color = Color(0.59179, 1.56425e-06, 0.351547, 1)
+OptionButton/font_sizes/font_size = 32
+RichTextLabel/fonts/bold_font = ExtResource("1_qwec5")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_qwec5")
+RichTextLabel/fonts/italics_font = ExtResource("1_qwec5")
+RichTextLabel/fonts/mono_font = ExtResource("1_qwec5")
+RichTextLabel/fonts/normal_font = ExtResource("1_qwec5")
+RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_dsqq3")
+TextEdit/fonts/font = ExtResource("1_qwec5")
+TextEdit/styles/focus = SubResource("StyleBoxEmpty_0bcxo")

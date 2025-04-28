@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4omtxpf802sq"]
+
+[ext_resource type="Texture2D" uid="uid://da4mh3ndimt61" path="res://textures/soffit.jpeg" id="1_a0r77"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fk0h6"]
+albedo_texture = ExtResource("1_a0r77")
+uv1_scale = Vector3(8, 8, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ewn2r"]
+lightmap_size_hint = Vector2i(14, 21)
+add_uv2 = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_pnxn4"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="soffit" type="MeshInstance3D"]
+transform = Transform3D(4, 0, 0, 0, 0.15, 0, 0, 0, 4, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_fk0h6")
+gi_lightmap_scale = 3
+mesh = SubResource("BoxMesh_ewn2r")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_pnxn4")

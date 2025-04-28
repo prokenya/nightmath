@@ -1,0 +1,272 @@
+[gd_scene load_steps=26 format=3 uid="uid://3n3rg60olvt7"]
+
+[ext_resource type="Script" uid="uid://bte3b17p4gd85" path="res://scripts/enemy.gd" id="1_of6s1"]
+[ext_resource type="AudioStream" uid="uid://bg2dk7k1d2s5p" path="res://audio/sfx/Monster_Roar_2.wav" id="2_e545s"]
+[ext_resource type="PackedScene" uid="uid://bce6ht7utp0qj" path="res://models/plr3.blend" id="2_or3ja"]
+[ext_resource type="AudioStream" uid="uid://d4iu7act0he1d" path="res://audio/sfx/truba-upala.mp3" id="3_t17ky"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0hbad"]
+radius = 0.2
+height = 1.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1qnrj"]
+radius = 1.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ouf04"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ejncy"]
+fadein_time = 0.3
+fadeout_time = 0.3
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvy8f"]
+animation = &"idle1"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_c8qcm"]
+xfade_time = 1.0
+input_0/name = "IDLE"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "WALK"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "RUN"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "SITTING"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+input_4/name = "CROWLING"
+input_4/auto_advance = false
+input_4/break_loop_at_end = false
+input_4/reset = true
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_y155w"]
+fadein_time = 0.3
+fadeout_time = 0.3
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oa0uj"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_gexgp"]
+fadein_time = 0.3
+fadeout_time = 0.3
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_rgclc"]
+fadein_time = 0.3
+fadeout_time = 0.3
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_xvflq"]
+fadein_time = 0.3
+fadeout_time = 0.3
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hjmw2"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6lybe"]
+animation = &"crowling"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b3nis"]
+animation = &"hitr"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_35dsh"]
+animation = &"open_door"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3p2pd"]
+animation = &"sit_to_stand"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dovtc"]
+animation = &"sitting"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_70exc"]
+animation = &"sleep"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kps8p"]
+animation = &"stand_to_sit"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_anteh"]
+graph_offset = Vector2(-440.208, 93.9233)
+nodes/HIT/node = SubResource("AnimationNodeOneShot_ejncy")
+nodes/HIT/position = Vector2(400, 380)
+nodes/IDLE/node = SubResource("AnimationNodeAnimation_nvy8f")
+nodes/IDLE/position = Vector2(-40, 320)
+nodes/MOVMENT/node = SubResource("AnimationNodeTransition_c8qcm")
+nodes/MOVMENT/position = Vector2(240, 380)
+nodes/OPEN_DOOR/node = SubResource("AnimationNodeOneShot_y155w")
+nodes/OPEN_DOOR/position = Vector2(400, 620)
+nodes/RUN/node = SubResource("AnimationNodeAnimation_oa0uj")
+nodes/RUN/position = Vector2(-40, 600)
+nodes/SIT_STAND/node = SubResource("AnimationNodeOneShot_gexgp")
+nodes/SIT_STAND/position = Vector2(400, 1100)
+nodes/SLEEP/node = SubResource("AnimationNodeOneShot_rgclc")
+nodes/SLEEP/position = Vector2(400, 1340)
+nodes/STAND_SIT/node = SubResource("AnimationNodeOneShot_xvflq")
+nodes/STAND_SIT/position = Vector2(400, 860)
+nodes/WALK/node = SubResource("AnimationNodeAnimation_hjmw2")
+nodes/WALK/position = Vector2(-40, 460)
+"nodes/anim crowling/node" = SubResource("AnimationNodeAnimation_6lybe")
+"nodes/anim crowling/position" = Vector2(-40, 1580)
+"nodes/anim hit/node" = SubResource("AnimationNodeAnimation_b3nis")
+"nodes/anim hit/position" = Vector2(-40, 740)
+"nodes/anim open_door/node" = SubResource("AnimationNodeAnimation_35dsh")
+"nodes/anim open_door/position" = Vector2(-40, 880)
+"nodes/anim sit-stand/node" = SubResource("AnimationNodeAnimation_3p2pd")
+"nodes/anim sit-stand/position" = Vector2(-40, 1160)
+"nodes/anim sitting/node" = SubResource("AnimationNodeAnimation_dovtc")
+"nodes/anim sitting/position" = Vector2(-40, 1300)
+"nodes/anim sleep/node" = SubResource("AnimationNodeAnimation_70exc")
+"nodes/anim sleep/position" = Vector2(-40, 1440)
+"nodes/anim stand-sit/node" = SubResource("AnimationNodeAnimation_kps8p")
+"nodes/anim stand-sit/position" = Vector2(-40, 1020)
+nodes/output/position = Vector2(820, 1320)
+node_connections = [&"HIT", 0, &"MOVMENT", &"HIT", 1, &"anim hit", &"MOVMENT", 0, &"IDLE", &"MOVMENT", 1, &"WALK", &"MOVMENT", 2, &"RUN", &"MOVMENT", 3, &"anim sitting", &"MOVMENT", 4, &"anim crowling", &"OPEN_DOOR", 0, &"HIT", &"OPEN_DOOR", 1, &"anim open_door", &"SIT_STAND", 0, &"STAND_SIT", &"SIT_STAND", 1, &"anim sit-stand", &"SLEEP", 0, &"SIT_STAND", &"SLEEP", 1, &"anim sleep", &"STAND_SIT", 0, &"OPEN_DOOR", &"STAND_SIT", 1, &"anim stand-sit", &"output", 0, &"SLEEP"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s187k"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="enemy" type="CharacterBody3D" groups=["enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00212222, 0, -0.00275087)
+collision_layer = 3
+collision_mask = 129
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_of6s1")
+streams = Array[AudioStream]([ExtResource("2_e545s"), ExtResource("3_t17ky")])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.348592, 0)
+shape = SubResource("CapsuleShape3D_0hbad")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.4
+target_desired_distance = 0.6
+avoidance_enabled = true
+
+[node name="Area3D" type="Area3D" parent="." groups=["damage", "enemy"]]
+editor_description = "100"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.616361, 0)
+collision_mask = 16385
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_1qnrj")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ouf04")
+
+[node name="plr3" parent="." instance=ExtResource("2_or3ja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21109, 0)
+
+[node name="Cube_002" parent="plr3" index="0"]
+visible = false
+layers = 0
+
+[node name="Armature" parent="plr3" index="1"]
+transform = Transform3D(-1, 8.74228e-08, -3.82137e-15, 0, -4.37114e-08, -1, -8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
+
+[node name="Skeleton3D" parent="plr3/Armature" index="0"]
+bones/0/position = Vector3(0.00787874, -0.00267161, -0.6978)
+bones/0/rotation = Quaternion(-0.685585, -0.269861, 0.247898, 0.629043)
+bones/1/rotation = Quaternion(0.0191681, 0.0406069, -0.00591749, 0.998974)
+bones/2/rotation = Quaternion(0.0927037, 0.0811014, -0.0120578, 0.992312)
+bones/3/rotation = Quaternion(0.0927037, 0.0811014, -0.0120578, 0.992312)
+bones/4/rotation = Quaternion(0.0120313, -0.010652, 0.00129262, 0.99987)
+bones/5/rotation = Quaternion(-0.061465, 0.177325, -0.00169201, 0.98223)
+bones/7/rotation = Quaternion(-0.552779, -0.451074, 0.564979, -0.414448)
+bones/8/rotation = Quaternion(0.48462, -0.103381, 0.0255857, 0.868217)
+bones/9/rotation = Quaternion(-0.00499377, 0.0764054, 0.42129, 0.903688)
+bones/11/rotation = Quaternion(0.601715, -0.409848, 0.530363, 0.434372)
+bones/12/rotation = Quaternion(0.451962, 0.0885106, 0.208527, 0.862794)
+bones/13/rotation = Quaternion(0.0615506, -0.012914, -0.369949, 0.926921)
+bones/15/rotation = Quaternion(0.0798406, 0.196666, 0.972124, -0.099618)
+bones/16/rotation = Quaternion(-0.32766, 0.121925, -0.0348762, 0.936246)
+bones/17/rotation = Quaternion(0.561141, -0.0298231, -0.0490586, 0.825727)
+bones/18/rotation = Quaternion(0.302296, -0.00302485, -0.0195176, 0.95301)
+bones/20/rotation = Quaternion(-0.126825, -0.018569, 0.98383, 0.125099)
+bones/21/rotation = Quaternion(-0.298757, 0.0710892, -0.0270383, 0.951294)
+bones/22/rotation = Quaternion(0.663275, 0.0828295, 0.137876, 0.730886)
+bones/23/rotation = Quaternion(0.293722, 0.0217623, -0.00709055, 0.955617)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../plr3")
+tree_root = SubResource("AnimationNodeBlendTree_anteh")
+anim_player = NodePath("../plr3/AnimationPlayer")
+parameters/HIT/active = false
+parameters/HIT/internal_active = false
+parameters/HIT/request = 0
+parameters/MOVMENT/current_state = "IDLE"
+parameters/MOVMENT/transition_request = ""
+parameters/MOVMENT/current_index = 0
+parameters/OPEN_DOOR/active = false
+parameters/OPEN_DOOR/internal_active = false
+parameters/OPEN_DOOR/request = 0
+parameters/SIT_STAND/active = false
+parameters/SIT_STAND/internal_active = false
+parameters/SIT_STAND/request = 0
+parameters/SLEEP/active = false
+parameters/SLEEP/internal_active = false
+parameters/SLEEP/request = 0
+parameters/STAND_SIT/active = false
+parameters/STAND_SIT/internal_active = false
+parameters/STAND_SIT/request = 0
+
+[node name="current_target" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.616361, -1.931)
+top_level = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="current_target"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="current_target/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.188538, 0)
+shape = SubResource("BoxShape3D_s187k")
+
+[node name="reycastsf" type="Node3D" parent="."]
+transform = Transform3D(0.82, 0, 0, 0, 0.82, 0, 0, 0, 0.82, 0, -0.12262, 0)
+
+[node name="1" type="RayCast3D" parent="reycastsf"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.5, 0)
+target_position = Vector3(0, 30, 0)
+debug_shape_custom_color = Color(0.996078, 0, 0, 1)
+
+[node name="2" type="RayCast3D" parent="reycastsf"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0)
+target_position = Vector3(0, 30, 0)
+debug_shape_custom_color = Color(0.996078, 0, 0, 1)
+
+[node name="3" type="RayCast3D" parent="reycastsf"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, -0.185)
+target_position = Vector3(0, 30, 0)
+debug_shape_custom_color = Color(0.996078, 0, 0, 1)
+
+[node name="4" type="RayCast3D" parent="reycastsf"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, 30, 0)
+debug_shape_custom_color = Color(0.996078, 0, 0, 1)
+
+[node name="memory" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+max_distance = 10.0
+bus = &"SFX"
+
+[connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="timeout" from="memory" to="." method="_on_memory_timeout"]
+
+[editable path="plr3"]

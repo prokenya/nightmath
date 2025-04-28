@@ -1,0 +1,142 @@
+[gd_resource type="Resource" script_class="Data" load_steps=3 format=3 uid="uid://c6funfkyq3dwr"]
+
+[ext_resource type="Script" uid="uid://cxh2pn5oelwdw" path="res://resources/data.gd" id="1_w5a55"]
+[ext_resource type="Texture2D" uid="uid://dyixr174ug3n6" path="res://textures/tasks/1.png" id="2_yj5ik"]
+
+[resource]
+script = ExtResource("1_w5a55")
+items = {
+-1: ["res://scen/items/enemy.tscn", 0, 0, 1, 0],
+0: ["res://scen/items/drone.tscn", "res://scen/items/inventory/drone_inv.tscn", "res://textures/icons/drone.png", 3, 0, "drone"],
+1: ["res://scen/items/ak_drop.tscn", "res://scen/items/inventory/watermelon_gun.tscn", "res://textures/icons/ak_w.png", 1, 0, "ak_drop"],
+2: ["res://scen/items/watermelon.tscn", "res://scen/items/inventory/watermelon_inv.tscn", "res://textures/icons/watermelon.png", 10, 0, "watermelon"],
+3: ["res://scen/items/drone.tscn", 0, 0, 3, "res://scen/items/sub_nodes/explosive_module.tscn", "drone"],
+4: ["res://scen/items/bullet.tscn", 0, 0, 1, 0],
+5: ["res://scen/items/abeme.tscn", "res://scen/items/inventory/abeme_inv.tscn", "res://textures/model_0.png", 5, 0, "abeme"],
+6: ["res://scen/vfx/vfx_expp1.tscn", 0, 0, 0, 0],
+7: ["res://scen/items/flashlight.tscn", "res://scen/items/inventory/flashlight_inv.tscn", "res://textures/icons/flashlight.png", 1, 0, "flashlight"],
+8: [0, "res://scen/items/inventory/enemy_controler.tscn", 0, 1, 0, 0],
+9: ["res://scen/items/mushroom.tscn", "res://scen/items/inventory/mushrooms.tscn", "res://textures/icons/mushroom.png", 13, 0, "mushroom"],
+10: ["res://scen/items/npice.tscn", "res://scen/items/inventory/npice_inv.tscn", "res://textures/icons/paperp.png", 1, null, "torn piece of notebook"],
+11: ["res://scen/assets/graph_gen.tscn", "0", "0", 1, "0", "graph"],
+12: ["res://scen/items/axe.tscn", "res://scen/items/inventory/axe.tscn", "res://textures/icons/axe.png", 1, "0", "axe"],
+13: ["res://scen/vfx/wood.tscn", "0", "0", 1, "0"]
+}
+tasks = {
+1: {
+"Answers": ["A", "B", "C", "D"],
+"CorrectAnswerIndex": 3,
+"Difficulty": "ez",
+"Task": {
+"en": "Which figure shows a sketch of the graph y = 5/x",
+"ru": "На каком рисунке изображен эскиз графика y = 5/x",
+"uk": "На якому рисунку зображено ескіз графіка  y = 5/x"
+},
+"Type": "Teacher",
+"img": ExtResource("2_yj5ik")
+},
+2: {
+"Answers": [20, 25, 30, 15],
+"CorrectAnswerIndex": 1,
+"Difficulty": "ez",
+"Task": {
+"en": "Enter the code equal to the square of 5",
+"ru": "Введите код, который равен квадрату числа 5",
+"uk": "Введіть код, який дорівнює квадрату числа 5"
+},
+"Type": "Safe"
+},
+3: {
+"Answers": [3, 5, 7, 10],
+"CorrectAnswerIndex": 1,
+"Difficulty": "ez",
+"Task": {
+"en": "Solve the equation: 3x + 5 = 20",
+"ru": "Решите уравнение: 3x + 5 = 20",
+"uk": "Розв'яжіть рівняння: 3x + 5 = 20"
+},
+"Type": "Teacher"
+},
+4: {
+"Answers": ["1/4", "2", "1/8", "1/2"],
+"CorrectAnswerIndex": 0,
+"Difficulty": "ez",
+"Task": {
+"en": "What is the value of the expression ³√8/√64?",
+"ru": "Чему равно значение выражения ³√8/√64?",
+"uk": "Чому дорівнює значения виразу ³√8/√64?"
+},
+"Type": "Teacher"
+},
+5: {
+"Answers": ["14", "24", "48", "28"],
+"CorrectAnswerIndex": 1,
+"Difficulty": "ez",
+"Task": {
+"en": "Find the area of a triangle whose side is 8 and whose height is 6.",
+"ru": "Найдите площадь треугольника, сторона которого равна 8, а высота - 6.",
+"uk": "Знайдіть площу трикутника, сторона якого дорівнює 8, висота, проведена до цієї сторони, дорівнює 6"
+},
+"Type": "Teacher"
+},
+6: {
+"Answers": ["2/3", "1/6", "5/6", "1/2"],
+"CorrectAnswerIndex": 3,
+"Difficulty": "ez",
+"Task": {
+"en": "What is the probability of getting an odd number when rolling a dice?",
+"ru": "Какова вероятность выпадения нечетного числа при подбрасывании игрального кубика?",
+"uk": "Яка ймовірність отримати непарне число, при підкиданні грального кубика?"
+},
+"Type": "Teacher"
+},
+7: {
+"Answers": ["(-∞; -5)", "[-5;4)", "(0;1]", "[2;8]"],
+"CorrectAnswerIndex": 3,
+"Difficulty": "medium",
+"Task": {
+"en": "What interval does the root of log₂(X)=3 belong to?",
+"ru": "Какому промежутку принадлежит корень уравнения log₂(X)=3?",
+"uk": "Якому проміжку належить корінь рівняння log₂(X)=3?"
+},
+"Type": "Teacher"
+},
+8: {
+"Answers": ["none", "1", "2", "3"],
+"CorrectAnswerIndex": 2,
+"Difficulty": "medium",
+"Task": {
+"en": "How many zeros does the function 1-х² have?",
+"ru": "Сколько нулей имеет функция 1-х²?",
+"uk": "Скільки нулів має функція 1-х²?"
+},
+"Type": "Teacher"
+},
+9: {
+"Answers": ["30°", "90°", "45°", "60°"],
+"CorrectAnswerIndex": 3,
+"Difficulty": "hard",
+"Task": {
+"en": "Find the degree measure of the angle a, whose vertex belongs to the circle centered at point O, and the distance between the ends of the smaller arc on which it rests is equal to the radius of the circle",
+"ru": "Найдите градусную меру угла а, вершина которого принадлежит окружности с центром в точке О, а расстояние между концами меньшей дуги, на которую он опирается, равно радиусу окружности",
+"uk": "Знайдіть градусну міру кута а, вершина якого належить колу з центром в точці О, а відстань між кінцями меншої дуги, на яку він спирається, дорівнює радіусу кола"
+},
+"Type": "Teacher"
+},
+10: {
+"Answers": ["Âîçìîæíî, äà.", "Íåò, ýòî îøèáêà.", "¯_(ツ)_/¯", "Êòî çíàåò..."],
+"CorrectAnswerIndex": 0,
+"Difficulty": ";",
+"Task": {
+"en": "Ðàçâå èòî íå ïðàâäà?",
+"ru": "Ðàçâå èòî íå ïðàâäà?",
+"uk": "Ðàçâå èòî íå ïðàâäà?"
+},
+"Type": "Teacher"
+}
+}
+in_code_localisation = {
+"en": ["Write your name!", "Sorry, such a person is dead", "hello ", "goodbye ", "I don't have any more assignments for you.", "stop!", "this task has been written off"],
+"ru": ["Напишите свое имя!", "К сожалению, такой человек мертв.", "привет ", "Прощай ", "у меня больше нет заданий для тебя", "стой!", "списано!"],
+"uk": ["Напишіть своє ім'я!", "На жаль, така людина померла", "привіт ", "Прощавай ", "У мене більше немає для тебе завдань.", "стій!", "списано з Рєщєбніка"]
+}

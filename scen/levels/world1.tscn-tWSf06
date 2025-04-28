@@ -1,0 +1,59 @@
+[gd_scene load_steps=23 format=4 uid="uid://b2472y8ivk6rh"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_gm4cl"]
+[ext_resource type="Script" path="res://scripts/object_spawner.gd" id="2_7odmd"]
+[ext_resource type="PackedScene" uid="uid://b2t68qqxwy1kg" path="res://scen/assets/floor.tscn" id="3_08mlu"]
+[ext_resource type="PackedScene" uid="uid://qnb05piiopcn" path="res://scen/assets/wall_2_door_low.tscn" id="4_lvvrb"]
+[ext_resource type="PackedScene" uid="uid://c1ajen7ips1vl" path="res://scen/assets/wall_2_low.tscn" id="5_4q4qe"]
+[ext_resource type="Theme" uid="uid://bg8fsepfigyn0" path="res://theme/base_opt.tres" id="5_bapal"]
+[ext_resource type="PackedScene" uid="uid://be5rme452nfqh" path="res://scen/assets/wall_4_low.tscn" id="6_g7x5k"]
+[ext_resource type="PackedScene" uid="uid://nevcrrstn13a" path="res://scen/assets/wall_4_win_low.tscn" id="7_cxa7k"]
+[ext_resource type="PackedScene" uid="uid://c4omtxpf802sq" path="res://scen/assets/soffit.tscn" id="8_dgkl7"]
+[ext_resource type="PackedScene" uid="uid://b8cdy4xr3vhgo" path="res://scen/assets/table_1.tscn" id="9_0urtv"]
+[ext_resource type="ArrayOccluder3D" uid="uid://dubb8o6cpn6i0" path="res://scen/levels/world1.occ" id="9_46vw6"]
+[ext_resource type="PackedScene" uid="uid://capis0nv4jlb8" path="res://scen/assets/chair.tscn" id="10_je445"]
+[ext_resource type="Script" path="res://scripts/lights.gd" id="11_wol2g"]
+[ext_resource type="LightmapGIData" uid="uid://c4q3xqu2qj7p3" path="res://scen/levels/world1.lmbake" id="13_r8vse"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5gscs"]
+sky_top_color = Color(0.276906, 0.333808, 0.412953, 1)
+sky_curve = 0.106066
+
+[sub_resource type="Sky" id="Sky_y7ebw"]
+sky_material = SubResource("ProceduralSkyMaterial_5gscs")
+
+[sub_resource type="Environment" id="Environment_614wv"]
+background_mode = 1
+sky = SubResource("Sky_y7ebw")
+tonemap_mode = 2
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.06
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_bhyvg"]
+vertices = PackedVector3Array(-0.575, 2.35249, -7.575, -0.575, 2.35249, 7.675, 10.675, 2.35249, 7.675, 10.675, 2.35249, -7.575, -0.325, 0.602494, 7.425, -0.075, 0.602494, 7.175, -0.075, 0.352494, 6.175, -0.325, 0.352494, -7.325, 1.925, 0.602494, 7.175, 2.425, 0.602494, 7.425, 1.925, 0.352494, 6.175, 2.425, 0.352494, -7.325, 3.675, 0.352494, -7.325, 3.675, 0.352494, -0.575, 10.425, 0.352494, -0.575, 10.425, 0.352494, -7.325, 6.175, 0.352494, 5.925, 5.925, 0.352494, 7.425, 10.425, 0.352494, 7.425, 3.675, 0.352494, 0.675, 3.675, 0.352494, 5.175, 5.425, 0.352494, 5.175, 10.425, 0.352494, 0.675)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(5, 8, 4), PackedInt32Array(4, 8, 9), PackedInt32Array(6, 7, 10), PackedInt32Array(10, 7, 11), PackedInt32Array(8, 10, 9), PackedInt32Array(9, 10, 11), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13), PackedInt32Array(18, 17, 16), PackedInt32Array(21, 20, 19), PackedInt32Array(16, 21, 18), PackedInt32Array(18, 21, 22), PackedInt32Array(22, 21, 19)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qy2kq"]
+resource_name = "Metal"
+vertex_color_use_as_albedo = true
+emission_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xcn5"]
+resource_name = "Emissor.001"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ynxv4"]
+_surfaces = [{
+"aabb": AABB(-0.00102274, -0.00118096, 0.000152278, 0.00204549, 0.00236193, 0.000312642),
+"format": 34359742465,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwA"),
+"name": "Metal",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA

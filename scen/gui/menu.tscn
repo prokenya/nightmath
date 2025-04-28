@@ -1,0 +1,480 @@
+[gd_scene load_steps=21 format=3 uid="uid://bo2s8uuybarua"]
+
+[ext_resource type="Script" uid="uid://b26tloo267frk" path="res://scripts/menu_0.gd" id="1_wmg5k"]
+[ext_resource type="PackedScene" uid="uid://cqn6qgtemelvm" path="res://scen/gui/base_opt.tscn" id="2_4uq3a"]
+[ext_resource type="Texture2D" uid="uid://csnlfmskjq0tx" path="res://textures/GUI/Gear.svg" id="2_ukhts"]
+[ext_resource type="Theme" uid="uid://bg8fsepfigyn0" path="res://theme/base_opt.tres" id="3_i7mto"]
+[ext_resource type="AudioStream" uid="uid://cqc71lwomk5he" path="res://audio/sfx/Interface_Bleeps_OGG/Complete_01.ogg" id="4_sx16a"]
+[ext_resource type="Script" uid="uid://b1jifbkqshwa" path="res://scripts/sfx_button.gd" id="4_ynobg"]
+[ext_resource type="AudioStream" uid="uid://iuuy0edyid7t" path="res://audio/sfx/Interface_Bleeps_OGG/Confirm_06.ogg" id="5_0apw4"]
+[ext_resource type="Script" uid="uid://cqht3drg40ebh" path="res://scripts/select_level.gd" id="5_5mpaj"]
+[ext_resource type="FontFile" uid="uid://xa7vene6lgxp" path="res://theme/LEngineer-Regular.otf" id="5_trlss"]
+[ext_resource type="PackedScene" uid="uid://du15xtjhwf3xv" path="res://scen/assets/graph_gen.tscn" id="10_ods6e"]
+[ext_resource type="Texture2D" uid="uid://varw4lx87ems" path="res://textures/1182467.160.webp" id="11_s4b4a"]
+[ext_resource type="Texture2D" uid="uid://f50oig6w6g7c" path="res://icon.png" id="11_v6y0o"]
+[ext_resource type="AudioStream" uid="uid://1105v7qjx1ep" path="res://audio/sfx/select.wav" id="12_nwf28"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eeghs"]
+line_spacing = 8.74
+font_size = 31
+font_color = Color(4.57242e-07, 0.411091, 0.114304, 1)
+shadow_size = 11
+shadow_color = Color(1, 0.341176, 0.827451, 0.117647)
+
+[sub_resource type="Environment" id="Environment_b0rlh"]
+background_mode = 1
+ambient_light_color = Color(1, 1, 1, 1)
+glow_enabled = true
+glow_normalized = true
+glow_blend_mode = 1
+fog_light_color = Color(0.398543, 0.592049, 0.58517, 1)
+fog_sky_affect = 0.494
+
+[sub_resource type="GDScript" id="GDScript_1t6vs"]
+script/source = "extends Node3D
+@onready var directional_light_3d: DirectionalLight3D = $DirectionalLight3D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	self.rotate_x(0.01)
+	self.rotate_y(0.01)
+"
+
+[sub_resource type="TextMesh" id="TextMesh_qw3pb"]
+text = "TEXT"
+font = ExtResource("5_trlss")
+font_size = 40
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cy742"]
+lightmap_size_hint = Vector2i(17, 14)
+add_uv2 = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aksyj"]
+albedo_texture = ExtResource("11_s4b4a")
+uv1_scale = Vector3(1.705, 1.705, 1.705)
+
+[sub_resource type="GDScript" id="GDScript_s4b4a"]
+resource_name = "look"
+script/source = "extends CSGSphere3D
+
+@onready var camera_3d: Camera3D = $\"../../../Camera3D\"
+
+
+func _physics_process(delta: float) -> void:
+	var mouse_pos = get_viewport().get_mouse_position()
+
+	var from = camera_3d.project_ray_origin(mouse_pos)
+	var dir = camera_3d.project_ray_normal(mouse_pos)
+
+	var target_position = from + dir * 10
+
+	get_parent().look_at(target_position, Vector3.UP)
+"
+
+[node name="CanvasLayer" type="CanvasLayer" groups=["scene_manager_entity_nodes"]]
+script = ExtResource("1_wmg5k")
+metadata/_edit_horizontal_guides_ = [111.0]
+metadata/entity_name = "CanvasLayer"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="menub" type="CanvasLayer" parent="Control" groups=["scene_manager_entity_nodes"]]
+layer = 128
+visible = false
+metadata/entity_name = "menub"
+
+[node name="menu" type="TextureButton" parent="Control/menub"]
+top_level = true
+visibility_layer = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 62.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+button_mask = 7
+texture_normal = ExtResource("2_ukhts")
+texture_pressed = ExtResource("2_ukhts")
+texture_hover = ExtResource("2_ukhts")
+texture_disabled = ExtResource("2_ukhts")
+texture_focused = ExtResource("2_ukhts")
+stretch_mode = 0
+script = ExtResource("4_ynobg")
+stream = ExtResource("4_sx16a")
+
+[node name="menu" type="CanvasLayer" parent="Control"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/menu" groups=["scene_manager_entity_nodes"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_i7mto")
+theme_override_constants/separation = 0
+metadata/entity_name = "a"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/menu/HBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="multiplayer" type="Button" parent="Control/menu/HBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 75
+disabled = true
+action_mode = 0
+text = "multiplayer"
+
+[node name="play" type="Button" parent="Control/menu/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 75
+action_mode = 0
+text = "play"
+script = ExtResource("4_ynobg")
+stream = ExtResource("5_0apw4")
+
+[node name="settings" type="Button" parent="Control/menu/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 75
+action_mode = 0
+text = "settings"
+script = ExtResource("4_ynobg")
+
+[node name="credits" type="Button" parent="Control/menu/HBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 75
+action_mode = 0
+text = "credits"
+script = ExtResource("4_ynobg")
+
+[node name="LineEdit" type="LineEdit" parent="Control/menu/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+theme = ExtResource("3_i7mto")
+theme_override_colors/selection_color = Color(1, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.683077, 0.683077, 0.683077, 1)
+theme_override_colors/font_color = Color(0, 0.619145, 0.565022, 1)
+theme_override_font_sizes/font_size = 60
+placeholder_text = "your name"
+alignment = 1
+max_length = 25
+expand_to_text_length = true
+
+[node name="locale" type="OptionButton" parent="Control/menu/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/h_separation = 25
+theme_override_font_sizes/font_size = 45
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "en"
+popup/item_0/id = 0
+popup/item_1/text = "ru"
+popup/item_1/id = 1
+popup/item_2/text = "uk"
+popup/item_2/id = 2
+
+[node name="fun mode" type="CheckButton" parent="Control/menu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 45
+text = "lobotomy mode"
+
+[node name="warning" type="Label" parent="Control/menu/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 0)
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_i7mto")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+autowrap_mode = 2
+
+[node name="select_level" type="Control" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/select_level"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/select_level/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/select_level/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 35
+text = "select level"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/select_level/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CheckBox2" type="CheckBox" parent="Control/select_level/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 35
+text = "base_world_prefs"
+
+[node name="ItemList" type="ItemList" parent="Control/select_level/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 35
+fixed_icon_size = Vector2i(100, 100)
+script = ExtResource("5_5mpaj")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/select_level/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Control/select_level/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+theme = ExtResource("3_i7mto")
+theme_override_font_sizes/font_size = 60
+text = "play"
+
+[node name="settings" parent="Control" instance=ExtResource("2_4uq3a")]
+visible = false
+
+[node name="credits" type="Control" parent="Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_i7mto")
+
+[node name="BoxContainer" type="BoxContainer" parent="Control/credits"]
+top_level = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -181.0
+offset_right = 329.0
+offset_bottom = 181.0
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/credits/BoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/credits/BoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Control/credits/BoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_i7mto")
+theme_override_colors/font_color = Color(0.862745, 0, 0.686275, 1)
+theme_override_font_sizes/font_size = 35
+text = "devolopers"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Control/credits/BoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_i7mto")
+theme_type_variation = &"TooltipLabel"
+theme_override_colors/font_color = Color(0.812945, 0.644825, 1, 1)
+theme_override_font_sizes/font_size = 35
+text = "devoloper:
+@prokenya
+"
+label_settings = SubResource("LabelSettings_eeghs")
+
+[node name="HS" type="HSeparator" parent="Control/credits/BoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Control/credits/BoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "testers:
+@alekqq
+@alexeyprogamer"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Control/credits/BoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Control/credits/BoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_i7mto")
+theme_override_colors/font_color = Color(0.862745, 0, 0.686275, 1)
+theme_override_font_sizes/font_size = 35
+text = "music"
+horizontal_alignment = 1
+
+[node name="HS2" type="HSeparator" parent="Control/credits/BoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/credits/BoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "menu sfx by"
+vertical_alignment = 1
+
+[node name="LinkButton" type="LinkButton" parent="Control/credits/BoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "bleeoop"
+uri = "https://bleeoop.itch.io/"
+
+[node name="HS" type="HSeparator" parent="Control/credits/BoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -348.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.382536, 0.623422, 1)
+theme_override_font_sizes/font_size = 20
+text = "created on the basis of watermelon game 0.2.9"
+
+[node name="bg" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="bg"]
+unique_name_in_owner = true
+show_behind_parent = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="bg/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="bg" type="Node3D" parent="bg/SubViewportContainer/SubViewport"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="bg/SubViewportContainer/SubViewport/bg"]
+environment = SubResource("Environment_b0rlh")
+
+[node name="rot" type="Node3D" parent="bg/SubViewportContainer/SubViewport/bg"]
+script = SubResource("GDScript_1t6vs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="bg/SubViewportContainer/SubViewport/bg/rot"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.9588, 0, 0)
+light_color = Color(0.891447, 0.537475, 0.712265, 1)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="bg/SubViewportContainer/SubViewport/bg"]
+transform = Transform3D(-6.56545e-07, 0, 15.02, 0, 15.02, 0, -15.02, 0, -6.56545e-07, 0, 0, 0)
+mesh = SubResource("TextMesh_qw3pb")
+
+[node name="Camera3D" type="Camera3D" parent="bg/SubViewportContainer/SubViewport/bg"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.7539, 0, 0)
+
+[node name="gf-gen" parent="bg/SubViewportContainer/SubViewport/bg" instance=ExtResource("10_ods6e")]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, -2, 0, -1)
+visualize_when_spawned = true
+current_func_index = 2
+
+[node name="character" type="Node3D" parent="bg/SubViewportContainer/SubViewport/bg"]
+transform = Transform3D(0.421867, 0, -3.10144, 0, 3.13, 0, 3.10144, 0, 0.421867, 2.27618, -7.08749, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bg/SubViewportContainer/SubViewport/bg/character"]
+layers = 65537
+gi_mode = 2
+visibility_range_begin = 2.0
+mesh = SubResource("CapsuleMesh_cy742")
+
+[node name="Node3D" type="Node3D" parent="bg/SubViewportContainer/SubViewport/bg/character"]
+transform = Transform3D(0.445573, 0, 0.895246, 0, 1, 0, -0.895246, 0, 0.445573, 0, 1, 0)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="bg/SubViewportContainer/SubViewport/bg/character/Node3D"]
+transform = Transform3D(0.309976, 0.144544, 0.939693, -0.422618, 0.906308, 0, -0.851651, -0.397131, 0.34202, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_aksyj")
+script = SubResource("GDScript_s4b4a")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+autoplay = true
+bus = &"music"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_nwf28")
+volume_db = -30.0
+
+[node name="AspectRatioContainer" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("11_v6y0o")
+
+[connection signal="pressed" from="Control/menub/menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Control/menu/HBoxContainer/VBoxContainer/multiplayer" to="." method="_on_multiplayer_pressed"]
+[connection signal="button_up" from="Control/menu/HBoxContainer/VBoxContainer/play" to="Control/select_level/PanelContainer/VBoxContainer/ItemList" method="_on_play_pressed"]
+[connection signal="button_up" from="Control/menu/HBoxContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="button_up" from="Control/menu/HBoxContainer/VBoxContainer/credits" to="." method="_on_credits_pressed"]
+[connection signal="text_changed" from="Control/menu/HBoxContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="item_selected" from="Control/menu/HBoxContainer/locale" to="." method="_on_locale_item_selected"]
+[connection signal="toggled" from="Control/menu/HBoxContainer/fun mode" to="." method="_on_fun_mode_toggled"]
+[connection signal="toggled" from="Control/select_level/PanelContainer/VBoxContainer/HBoxContainer/CheckBox2" to="Control/select_level/PanelContainer/VBoxContainer/ItemList" method="_on_check_box_2_toggled"]
+[connection signal="item_activated" from="Control/select_level/PanelContainer/VBoxContainer/ItemList" to="Control/select_level/PanelContainer/VBoxContainer/ItemList" method="_on_item_activated"]
+[connection signal="item_clicked" from="Control/select_level/PanelContainer/VBoxContainer/ItemList" to="Control/select_level/PanelContainer/VBoxContainer/ItemList" method="_on_item_clicked"]
+[connection signal="pressed" from="Control/select_level/PanelContainer/VBoxContainer/HBoxContainer2/Button2" to="Control/select_level/PanelContainer/VBoxContainer/ItemList" method="_on_button_pressed"]

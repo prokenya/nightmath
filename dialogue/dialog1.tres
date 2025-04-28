@@ -1,0 +1,165 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3 uid="uid://cqhejoggox8lf"]
+
+[ext_resource type="Script" uid="uid://bsti34a5e8kg2" path="res://addons/dialogue_nodes/objects/DialogueData.gd" id="1_aov3v"]
+
+[resource]
+script = ExtResource("1_aov3v")
+starts = {
+"event_1": &"0_1",
+"mono": &"0_3",
+"task": &"0_2"
+}
+nodes = {
+&"0_1": {
+"link": &"1_1",
+"offset": Vector2(-180, -240),
+"start_id": "event_1"
+},
+&"0_2": {
+"link": &"1_4",
+"offset": Vector2(-180, 480),
+"start_id": "task"
+},
+&"0_3": {
+"link": &"1_2",
+"offset": Vector2(-220, 120),
+"start_id": "mono"
+},
+&"1_1": {
+"dialogue": "I picked up a [wave amp=50.0 freq=5.0 connected=1][color=red]mushroom![/color][/wave]",
+"offset": Vector2(100, -240),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 290),
+"speaker": 0
+},
+&"1_2": {
+"dialogue": "...",
+"offset": Vector2(60, 120),
+"options": {
+0: {
+"condition": {},
+"link": &"1_3",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": 1
+},
+&"1_3": {
+"dialogue": "...",
+"offset": Vector2(400, 140),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": 0
+},
+&"1_4": {
+"dialogue": " {{task_text}}",
+"offset": Vector2(100, 480),
+"options": {
+0: {
+"condition": {},
+"link": &"5_2",
+"text": " {{Answer1}}"
+},
+1: {
+"condition": {},
+"link": &"5_1",
+"text": " {{Answer2}}"
+},
+2: {
+"condition": {},
+"link": &"5_3",
+"text": " {{Answer3}}"
+},
+3: {
+"condition": {},
+"link": &"5_4",
+"text": " {{Answer4}}"
+}
+},
+"size": Vector2(300, 343),
+"speaker": 1
+},
+&"3_1": {
+"link": "END",
+"offset": Vector2(1200, 1260),
+"signalValue": "false"
+},
+&"3_2": {
+"link": "END",
+"offset": Vector2(1200, 1540),
+"signalValue": "true"
+},
+&"5_1": {
+"false": &"3_1",
+"offset": Vector2(500, 980),
+"operator": 0,
+"true": &"3_2",
+"value1": " {{Answer2}}",
+"value2": "{{CorrectAnswer}}"
+},
+&"5_2": {
+"false": &"3_1",
+"offset": Vector2(500, 660),
+"operator": 0,
+"true": &"3_2",
+"value1": " {{Answer1}}",
+"value2": "{{CorrectAnswer}}"
+},
+&"5_3": {
+"false": &"3_1",
+"offset": Vector2(500, 1280),
+"operator": 0,
+"true": &"3_2",
+"value1": " {{Answer3}}",
+"value2": "{{CorrectAnswer}}"
+},
+&"5_4": {
+"false": &"3_1",
+"offset": Vector2(500, 1600),
+"operator": 0,
+"true": &"3_2",
+"value1": " {{Answer4}}",
+"value2": "{{CorrectAnswer}}"
+}
+}
+variables = {
+"Answer1": {
+"type": 4,
+"value": ""
+},
+"Answer2": {
+"type": 4,
+"value": ""
+},
+"Answer3": {
+"type": 4,
+"value": ""
+},
+"Answer4": {
+"type": 4,
+"value": ""
+},
+"CorrectAnswer": {
+"type": 4,
+"value": "a"
+},
+"task_text": {
+"type": 4,
+"value": "asdaasa"
+}
+}
+strays = Array[String]([])
+characters = "res://dialogue/Characters.tres"

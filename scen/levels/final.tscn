@@ -1,0 +1,195 @@
+[gd_scene load_steps=12 format=3 uid="uid://blnn5kuimicjp"]
+
+[ext_resource type="PackedScene" uid="uid://be5rme452nfqh" path="res://scen/assets/wall_4_low.tscn" id="1_rubmv"]
+[ext_resource type="Texture2D" uid="uid://varw4lx87ems" path="res://textures/1182467.160.webp" id="2_l2g25"]
+[ext_resource type="PackedScene" uid="uid://blfs7p0007hru" path="res://scen/gui/credits.tscn" id="2_ok0a1"]
+[ext_resource type="AudioStream" uid="uid://b8b3srxton5qd" path="res://audio/music/end.ogg" id="4_lni72"]
+
+[sub_resource type="GDScript" id="GDScript_l2g25"]
+resource_name = "end"
+script/source = "extends Node3D
+@onready var spot_light_3d: SpotLight3D = $SpotLight3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
+func _ready() -> void:
+	animation_player.play(\"run\")
+
+
+func beep():
+	spot_light_3d.light_energy = randf()
+	audio_stream_player.volume_db = randf()
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	await get_tree().create_timer(5).timeout
+	OS.crash(\"error\")
+"
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lni72"]
+lightmap_size_hint = Vector2i(17, 14)
+add_uv2 = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7bpi"]
+albedo_texture = ExtResource("2_l2g25")
+uv1_scale = Vector3(1.705, 1.705, 1.705)
+
+[sub_resource type="Environment" id="Environment_ok0a1"]
+background_mode = 1
+
+[sub_resource type="Animation" id="Animation_lni72"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.299267, 0.706834, 0.898145)]
+}
+
+[sub_resource type="Animation" id="Animation_l2g25"]
+resource_name = "run"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.299267, 0.706834, 0.898145), Vector3(-0.541845, 1.54715, 0.477987)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.73333, 4.13333, 8.11684, 10.5168, 12.9869, 15.3869, 16.824, 19.224),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"beep"
+}, {
+"args": [],
+"method": &"beep"
+}, {
+"args": [],
+"method": &"beep"
+}, {
+"args": [],
+"method": &"beep"
+}, {
+"args": [],
+"method": &"beep"
+}, {
+"args": [],
+"method": &"beep"
+}, {
+"args": [],
+"method": &"beep"
+}, {
+"args": [],
+"method": &"beep"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m7bpi"]
+_data = {
+&"RESET": SubResource("Animation_lni72"),
+&"run": SubResource("Animation_l2g25")
+}
+
+[node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_l2g25")
+
+[node name="level" type="Node3D" parent="."]
+
+[node name="wall4-low" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.075, 1, 1)
+
+[node name="wall4-low2" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -0.996225, -4.35464e-08, 0.086808, 0.086808, 3.7945e-09, 0.996225, -0.075, 0, 1)
+
+[node name="wall4-low3" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(0.0646542, 0.997908, 0, -0.997908, 0.0646542, 0, 0, 0, 1, 1.925, 0, 1)
+
+[node name="wall4-low4" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.925, 1, 1)
+
+[node name="wall4-low5" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.075, 1, -3)
+
+[node name="wall4-low6" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -0.986406, -4.31172e-08, -0.164325, -0.164325, -7.18286e-09, 0.986406, -0.075, 0, -3)
+
+[node name="wall4-low7" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(0.272499, 0.962156, 0, -0.962156, 0.272499, 0, 0, 0, 1, 1.925, 0, -3)
+
+[node name="wall4-low9" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.075, 1, -7)
+
+[node name="wall4-low10" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.075, 0, -7)
+
+[node name="wall4-low11" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.925, 0, -7)
+
+[node name="wall4-low12" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(0.36798, 0.748493, -0.551679, -0.415341, 0.663143, 0.622683, 0.831915, 0, 0.554902, 1.0907, 1.2322, 2.05751)
+
+[node name="wall4-low13" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.925, 1, 3)
+
+[node name="wall4-low14" parent="level" instance=ExtResource("1_rubmv")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.799471, -0.503891, -2.96772)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="level"]
+transform = Transform3D(0.51, 0, 0, 0, 0.0943226, -0.501202, 0, 0.501202, 0.0943226, 0, 0.066061, 1.17424)
+layers = 65537
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_lni72")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="level"]
+transform = Transform3D(0.186001, 0.354184, 0.316318, 0.0465, 0.3245, -0.390689, -0.47259, 0.171328, 0.0860544, -0.525462, 0.167565, 1.7136)
+material_override = SubResource("StandardMaterial3D_m7bpi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ok0a1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0)
+light_energy = 0.045
+directional_shadow_mode = 0
+
+[node name="credits" parent="." instance=ExtResource("2_ok0a1")]
+offset_right = -576.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.866025, 0.433013, -0.25, 3.55271e-15, 0.5, 0.866025, 0.5, 0.75, -0.433013, -0.299267, 0.706834, 0.898145)
+current = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 2, 0)
+light_color = Color(0.677516, 0, 0.185595, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_m7bpi")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lni72")
+autoplay = true
+bus = &"music"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

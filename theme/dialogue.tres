@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dfig4jr1ovxx5"]
+
+[ext_resource type="FontFile" uid="uid://xa7vene6lgxp" path="res://theme/LEngineer-Regular.otf" id="1_oixlb"]
+
+[resource]
+default_font = ExtResource("1_oixlb")
+default_font_size = 30
+Button/font_sizes/font_size = 40
+Button/fonts/font = ExtResource("1_oixlb")

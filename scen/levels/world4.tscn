@@ -1,0 +1,311 @@
+[gd_scene load_steps=17 format=3 uid="uid://n6yotidg7v0h"]
+
+[ext_resource type="Script" uid="uid://c2cjj3d8hsny" path="res://scripts/world_4-extended.gd" id="1_4prik"]
+[ext_resource type="Script" uid="uid://b6ngkoi6mmsqh" path="res://scripts/object_spawner.gd" id="3_v42ol"]
+[ext_resource type="AudioStream" uid="uid://bj1wk16mnm6pp" path="res://audio/music/Echo - hollow - scary - anxiety.wav" id="5_6o4od"]
+[ext_resource type="PackedScene" uid="uid://6cil5ku0g4tq" path="res://scen/items/knife_no_inv.tscn" id="5_bsggr"]
+[ext_resource type="PackedScene" uid="uid://du15xtjhwf3xv" path="res://scen/assets/graph_gen.tscn" id="5_ge4or"]
+[ext_resource type="Texture2D" uid="uid://bd6fjfrt2m63y" path="res://textures/prototype/Dark/texture_01.png" id="6_guu88"]
+[ext_resource type="Theme" uid="uid://bg8fsepfigyn0" path="res://theme/base_opt.tres" id="7_gu833"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3nqkr"]
+
+[sub_resource type="Sky" id="Sky_54dri"]
+sky_material = SubResource("ProceduralSkyMaterial_3nqkr")
+
+[sub_resource type="Environment" id="Environment_ci314"]
+background_color = Color(0.227451, 0, 0, 1)
+background_energy_multiplier = 16.0
+sky = SubResource("Sky_54dri")
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.1
+glow_blend_mode = 1
+fog_enabled = true
+fog_light_color = Color(0.10748, 0.10748, 0.10748, 1)
+fog_height = 0.83
+fog_height_density = 0.4706
+adjustment_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_kd83p"]
+vertices = PackedVector3Array(-1, 0.957108, -1, -1, 0.957108, 1, 1, 0.957108, 1, 1, 0.957108, -1, -1, 1.95711, 3, -1, 1.95711, 5, 1, 1.95711, 5, 1, 1.95711, 3)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mob5o"]
+albedo_texture = ExtResource("6_guu88")
+emission_operator = 1
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kd83p"]
+size = Vector3(3, 4, 1)
+
+[sub_resource type="Animation" id="Animation_o4k8p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("knifes/knife1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(6, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("knifes/knife2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-6, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("knifes/knife3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, -6)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("knifes/knife4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_xumtl"]
+resource_name = "hit"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("knifes/knife1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(6, 1, 0), Vector3(0.5, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("knifes/knife2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-6, 1, 0), Vector3(-0.5, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("knifes/knife3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, -6), Vector3(0, 1, -0.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("knifes/knife4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 6), Vector3(0, 1, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xja0m"]
+_data = {
+&"RESET": SubResource("Animation_o4k8p"),
+&"hit": SubResource("Animation_xumtl")
+}
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_4prik")
+spawn_enemy = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ci314")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 5.00503, -8)
+visible = false
+light_color = Color(0, 0, 0, 1)
+light_bake_mode = 1
+
+[node name="spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="enemy point" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
+
+[node name="objects" type="Node3D" parent="."]
+script = ExtResource("3_v42ol")
+inworld = true
+
+[node name="gf-gen2" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(0.38, 0, 0, 0, -1.66103e-08, 0.380001, 0, -0.38, -1.66104e-08, -5, 1, 0)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 5.0
+current_func_index = 2
+
+[node name="gf-gen3" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(-0.38, 1.45212e-15, -3.32207e-08, 3.32207e-08, 1.66103e-08, -0.380001, 0, -0.38, -1.66104e-08, 5, 1, 0)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 5.0
+current_func_index = 2
+
+[node name="gf-gen4" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(-1.66103e-08, -0.38, -1.66104e-08, 0, -1.66103e-08, 0.380001, -0.38, 1.66103e-08, 7.26062e-16, 2.18557e-07, 1, 5)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 5.0
+current_func_index = 2
+
+[node name="gf-gen5" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(1.66103e-08, -0.38, -1.66104e-08, 3.32207e-08, 1.66103e-08, -0.380001, 0.38, 1.66103e-08, 3.32207e-08, -2.18557e-07, 1, -5)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 5.0
+current_func_index = 2
+
+[node name="gf-gen8" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(-1.66103e-08, -0.38, -1.66104e-08, -0.19, -6.07981e-09, 0.32909, -0.32909, 2.26901e-08, -0.19, 2.18557e-07, 4, 4)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 7.0
+current_func_index = 2
+
+[node name="gf-gen9" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(4.53803e-08, 0.38, 3.32207e-08, -0.19, -6.0798e-09, 0.32909, 0.32909, -5.59108e-08, 0.19, 2.18557e-07, 4, -4)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 7.0
+current_func_index = 2
+
+[node name="gf-gen10" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(0.32909, -6.07981e-09, 0.19, -0.19, -6.0798e-09, 0.32909, -7.88781e-09, -0.38, 1.50248e-09, -4, 4, -1.74846e-07)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 7.0
+current_func_index = 2
+
+[node name="gf-gen11" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(-0.32909, 3.93005e-08, -0.19, -0.19, -6.07981e-09, 0.32909, 3.09953e-08, 0.38, 2.49155e-08, 4, 4, 1.74846e-07)
+x_range = 30.0
+visualize_when_spawned = true
+wait_time = 7.0
+current_func_index = 2
+
+[node name="graph_gen" parent="objects" instance=ExtResource("5_ge4or")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+resolution = 500
+visualize_when_spawned = true
+wait_time = 10.0
+current_func_index = 5
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_kd83p")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69, 0)
+use_collision = true
+collision_layer = 15
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -49.9829, 0)
+use_collision = true
+size = Vector3(3, 100, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="NavigationLink3D" type="NavigationLink3D" parent="NavigationRegion3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 4)
+enabled = false
+bidirectional = false
+start_position = Vector3(0, -1.07, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3)
+shape = SubResource("BoxShape3D_kd83p")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6o4od")
+autoplay = true
+bus = &"music"
+
+[node name="knifes" type="Node" parent="."]
+
+[node name="knifes_Animation" type="AnimationPlayer" parent="knifes"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_xja0m")
+}
+
+[node name="knife1" parent="knifes" instance=ExtResource("5_bsggr")]
+transform = Transform3D(1.425, 0, 0, 0, 1.425, 0, 0, 0, 1.425, 6, 1, 0)
+
+[node name="knife2" parent="knifes" instance=ExtResource("5_bsggr")]
+transform = Transform3D(-1.425, 0, -1.24577e-07, 0, 1.425, 0, 1.24577e-07, 0, -1.425, -6, 1, 0)
+
+[node name="knife3" parent="knifes" instance=ExtResource("5_bsggr")]
+transform = Transform3D(-6.22887e-08, 0, 1.425, 0, 1.425, 0, -1.425, 0, -6.22887e-08, 0, 1, -6)
+
+[node name="knife4" parent="knifes" instance=ExtResource("5_bsggr")]
+transform = Transform3D(-6.22887e-08, 0, -1.425, 0, 1.425, 0, 1.425, 0, -6.22887e-08, 0, 1, 6)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228e-08, 0.5, -0.866025, 0, 6, -8)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_gu833")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 576.0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+fit_content = true
+scroll_following = true
+
+[connection signal="child_entered_tree" from="objects" to="." method="_on_objects_child_entered_tree"]
+[connection signal="animation_finished" from="knifes/knifes_Animation" to="." method="_on_knifes_animation_animation_finished"]

@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=4 uid="uid://bpodccfvf557o"]
+
+[ext_resource type="Texture2D" uid="uid://j5vkurbbki61" path="res://models/Textures/Electronics.jpg" id="1_0xeht"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iyj03"]
+resource_name = "Electronics"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_0xeht")
+emission_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_38sli"]
+_surfaces = [{
+"aabb": AABB(-0.01, -0.0436006, -0.00370071, 0.02, 0.0856668, 0.00740142),
+"format": 34359742465,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAEAAkACAAFAAQACAABAAAACAAJAAEABQAIAAoACgAGAAUACQAEAAcABwALAAkACAAAAAMAAwAKAAgACwACAAEAAQAJAAsACwAGAAoACwAHAAYACwADAAIACwAKAAMA"),
+"name": "Electronics",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("uvfNu5SWMr2ch3I72PfNO5SWMr2ch3I72PfNO5SWMr2bh3K7uvfNu5SWMr2bh3K7AtcjPIlNLD2ch3I7EtcjvIlNLD2ch3I7EtcjvIlNLD2bh3K7AtcjPIlNLD2bh3K7M9sbvGmxJL2ch3I7Q9sbPGmxJL2ch3I7M9sbvGmxJL2bh3K7Q9sbPGmxJL2bh3K7")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_g0qs8"]
+resource_name = "Control"
+_surfaces = [{
+"aabb": AABB(-0.01, -0.0436006, -0.00370071, 0.02, 0.0856668, 0.00740142),
+"attribute_data": PackedByteArray("mKncPjJFuj6Yqdw+vMC+PvwF2j68wL4+/AXaPjRFuj6Yqdw+yBPAPpip3D4m8rg+/AXaPibyuD78Bdo+yBPAPi7+xz3uFBA/0ub9PXBW5z4wjvw98BQQP4qlxj1wVuc+zaPzPdhAET+U6NA92kARP5ip3D6GYsQ+lqncPmAMpz77Bdo+YAynPvwF2j6GYsQ+mKncPmAMpz6Yqdw+hmLEPvwF2j6GYsQ+/AXaPmAMpz6Yqdw+yIKnPpap3D6qVKY++wXaPqxUpj78Bdo+yIKnPvwF2j7Igqc++gXaPqpUpj6Wqdw+qlSmPpip3D7Igqc+MY78PfAUED+KpcY9cFbnPi/+xz3vFBA/0eb9PXBW5z6U6NA92EARP8yj8z3aQBE/"),
+"format": 34359742487,
+"index_count": 60,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACAALAAkACAAMAA0ACAAKAAwADgAPABAAEAARAA4AEgATABQAFAAVABIAFgAXABgAGAAZABYAGgAbABwAHAAdABoAHgAfACAAHgAhAB8AHgAiACMAHgAgACIA"),
+"material": SubResource("StandardMaterial3D_iyj03"),
+"name": "Electronics",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("uvfNu5SWMr2ch3I72PfNO5SWMr2ch3I72PfNO5SWMr2bh3K7uvfNu5SWMr2bh3K7AtcjPIlNLD2ch3I7EtcjvIlNLD2ch3I7EtcjvIlNLD2bh3K7AtcjPIlNLD2bh3K7M9sbvGmxJL2ch3I7AtcjPIlNLD2ch3I7Q9sbPGmxJL2ch3I7EtcjvIlNLD2ch3I72PfNO5SWMr2ch3I7uvfNu5SWMr2ch3I7EtcjvIlNLD2ch3I7M9sbvGmxJL2ch3I7M9sbvGmxJL2bh3K7EtcjvIlNLD2bh3K7Q9sbPGmxJL2ch3I7AtcjPIlNLD2ch3I7AtcjPIlNLD2bh3K7Q9sbPGmxJL2bh3K7M9sbvGmxJL2ch3I7uvfNu5SWMr2ch3I7uvfNu5SWMr2bh3K7M9sbvGmxJL2bh3K7Q9sbPGmxJL2bh3K72PfNO5SWMr2bh3K72PfNO5SWMr2ch3I7Q9sbPGmxJL2ch3I7Q9sbPGmxJL2bh3K7EtcjvIlNLD2bh3K7M9sbvGmxJL2bh3K7AtcjPIlNLD2bh3K7uvfNu5SWMr2bh3K72PfNO5SWMr2bh3K7/38AAP9//7//fwAA/3//v/9/AAD/f/+//38AAP9//7//f////3//P/9/////f/8//3////9//z//f////3//P/9//3/+//+//3//f/7//7//f/9//v//v/9//3////+//3//f/7//7//f/9//v//v8AAPn//f/8/wAA+f/9//z/AAD5//3//P8AAPn//f/8/Pv8+f/9//78+/z5//3//vz7/Pn//f/+/Pv8+f/9//79mPphB/3//P2Y+mEH/f/8/Zj6YQf9//z9mPphB/3//P5jBmEH/f/+/mMGYQf9//7+YwZhB/3//v5jBmEH/f/+///////7//z///////v//P//////+//8//////////z///////v//P//////+//8/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_38sli")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Control" type="MeshInstance3D" parent="."]
+transform = Transform3D(-7.17, 6.26822e-07, -3.7138e-14, 3.93118e-07, 4.49675, -5.58464, -4.88225e-07, -5.58464, -4.49675, 0, 0, 0)
+mesh = SubResource("ArrayMesh_g0qs8")
+skeleton = NodePath("")

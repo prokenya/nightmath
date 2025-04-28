@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://38git442dfj"]
+
+[ext_resource type="Texture2D" uid="uid://dku1q8mq1cvav" path="res://models/Textures/Wood_02.jpg" id="2_8pljs"]
+
+[sub_resource type="GDScript" id="GDScript_60tkt"]
+resource_name = "vfx"
+script/source = "extends Node3D
+
+
+@onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D
+
+func _ready() -> void:
+	gpu_particles_3d.emitting = true
+	await  gpu_particles_3d.finished
+	queue_free()
+"
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b77uh"]
+lifetime_randomness = 0.26
+particle_flag_align_y = true
+emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+scale_min = 0.1
+scale_max = 0.3
+
+[sub_resource type="Curve" id="Curve_4jm6u"]
+bake_resolution = 10
+_data = [Vector2(0.211765, 0), 0.0, 0.0, 0, 0, Vector2(0.305882, 0.285714), 0.0, 0.0, 0, 0, Vector2(0.488235, 0.208791), 0.0, 0.0, 0, 0, Vector2(0.658824, 0.175824), 0.0, 0.0, 0, 0, Vector2(0.8, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xawu"]
+albedo_texture = ExtResource("2_8pljs")
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_5eold"]
+material = SubResource("StandardMaterial3D_5xawu")
+curve = SubResource("Curve_4jm6u")
+
+[node name="Node3D" type="Node3D"]
+script = SubResource("GDScript_60tkt")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+randomness = 0.67
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_b77uh")
+draw_pass_1 = SubResource("RibbonTrailMesh_5eold")

@@ -1,0 +1,424 @@
+[gd_scene load_steps=29 format=3 uid="uid://b3ivxenjs6ydu"]
+
+[ext_resource type="Script" uid="uid://ciqrqutks7m8o" path="res://scripts/world_3-extended.gd" id="1_p61lc"]
+[ext_resource type="Script" uid="uid://gunwfob3ioot" path="res://scripts/trigger.gd" id="2_d6dwr"]
+[ext_resource type="Script" uid="uid://b6ngkoi6mmsqh" path="res://scripts/object_spawner.gd" id="3_pyyfn"]
+[ext_resource type="PackedScene" uid="uid://du15xtjhwf3xv" path="res://scen/assets/graph_gen.tscn" id="4_aw1qp"]
+[ext_resource type="Texture2D" uid="uid://bd6fjfrt2m63y" path="res://textures/prototype/Dark/texture_01.png" id="5_802ut"]
+[ext_resource type="PackedScene" uid="uid://cq3t6hlhu5x0a" path="res://scen/items/npice.tscn" id="6_hkgwp"]
+[ext_resource type="PackedScene" uid="uid://kj2o22k8d6we" path="res://scen/assets/door2_f.tscn" id="6_nrnfv"]
+[ext_resource type="ArrayMesh" uid="uid://dbupkyvmnt8ge" path="res://models/mesh/ram.tres" id="8_vh065"]
+[ext_resource type="AudioStream" uid="uid://6k17c8xuy287" path="res://audio/music/level3.ogg" id="9_shm6v"]
+
+[sub_resource type="Environment" id="Environment_fbdkj"]
+background_color = Color(0.227451, 0, 0, 1)
+background_energy_multiplier = 16.0
+ambient_light_color = Color(0.241156, 0.241156, 0.241156, 1)
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.1
+glow_blend_mode = 1
+fog_enabled = true
+fog_light_color = Color(0.111216, 0.000705729, 1.20327e-08, 1)
+fog_height = 0.83
+fog_height_density = 0.4706
+adjustment_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fsloj"]
+size = Vector3(4.47008, 2.85928, 4.32532)
+
+[sub_resource type="GDScript" id="GDScript_x6pyb"]
+script/source = "extends Area3D
+
+
+var toggled:bool = false
+
+func _on_body_entered(body: Node3D) -> void:
+	if toggled:return
+	if body.is_in_group(\"player\"):
+		Event.OSalert(\"...\")
+		await get_tree().create_timer(1).timeout
+		Event.emit_signal(\"start_dialogue\",\"task\",true,10)
+		toggled = true
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6d0b"]
+size = Vector3(1, 30, 30)
+
+[sub_resource type="GDScript" id="GDScript_u4ow3"]
+script/source = "extends Area3D
+var toggled:bool = false
+func _on_body_entered(body: Node3D) -> void:
+	if toggled:return
+	if body.is_in_group(\"player\"):
+		Event.OSalert(Event.data.in_code_localisation[Event.userdata.locale][5] + Event.player_name)
+		toggled = true
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0wmeo"]
+size = Vector3(2.90471, 2.785, 2.74)
+
+[sub_resource type="GDScript" id="GDScript_v50i1"]
+resource_name = "d"
+script/source = "extends \"res://scripts/graph_gen.gd\"
+
+func _physics_process(delta: float) -> void:
+	var target_rotation = Vector3(randf_range(-PI, PI), randf_range(-PI, PI), randf_range(-PI, PI))
+	self.rotation.x = lerp_angle(self.rotation.x, target_rotation.x, delta)
+	self.rotation.y = lerp_angle(self.rotation.y, target_rotation.y, delta)
+	self.rotation.z = lerp_angle(self.rotation.z, target_rotation.z, delta)
+"
+
+[sub_resource type="Gradient" id="Gradient_jlxdp"]
+offsets = PackedFloat32Array(0, 0.506849, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7ngt7"]
+gradient = SubResource("Gradient_jlxdp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1n7jk"]
+lifetime_randomness = 0.36
+particle_flag_rotate_y = true
+emission_shape_scale = Vector3(2.005, 1.645, 1.78)
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_max = 1.0
+angular_velocity_min = 100.0
+angular_velocity_max = 100.0
+radial_velocity_min = 0.0999776
+radial_velocity_max = 2.99998
+gravity = Vector3(0, 0, 0)
+scale_min = 164.17
+scale_max = 500.0
+color_ramp = SubResource("GradientTexture1D_7ngt7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mob5o"]
+albedo_texture = ExtResource("5_802ut")
+emission_operator = 1
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="GDScript" id="GDScript_bqoah"]
+script/source = "
+extends StaticBody3D
+
+const BOOM = preload(\"res://audio/sfx/boom.ogg\")
+const DOOR_2_F = preload(\"res://scen/assets/door2_f.tscn\")
+var item_id = -3
+var pos = Vector3(-60,10.5,4.4)
+func open():
+	item_id = -1
+	self.visible = false
+	var data = {\"amount\": 1,
+\"custom_properties\": {
+\"current_func_index\":2,
+\"random_color\": true,
+\"resolution\": 500,
+\"time_for_point\": 0.01,
+\"use_collision\": true,
+\"visualize_when_spawned\": true,
+\"x_range\": 10.0
+},
+\"impulse\": Vector3(0, 0, 0),
+\"obj_position\": Vector3(-21.14,1.635, 6.22),
+\"obj_rotation\": Vector3(-1.3638, 1.5708, 1.5708),
+\"obj_scale\": Vector3(2, 2, 2),
+\"spawn_obj_id\": 11
+}
+	Event.emit_signal(\"spawn_obj\",data)
+	await get_tree().create_timer(10).timeout
+	var door = DOOR_2_F.instantiate()
+	door.position = pos
+	door.rotation = Vector3(0,90,0)
+	get_parent().add_child(door)
+	Event.play_Gsfx(BOOM)
+	$\"../Node3D2/MeshInstance3D\".visible = true
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3g0jw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cliia"]
+emission_enabled = true
+emission = Color(1, 0.145098, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4qn5o"]
+
+[sub_resource type="GDScript" id="GDScript_odetv"]
+script/source = "extends Area3D
+
+
+func _on_body_entered(body):
+	if body.is_in_group(\"player\"):
+		Event.world.switch_scene(false,\"res://scen/levels/world5.tscn\",false,10,false)
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_odetv"]
+size = Vector3(1, 5, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_shm6v"]
+size = Vector3(1, 5, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_odetv"]
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_p61lc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fbdkj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 5.00503, -8)
+visible = false
+light_color = Color(0, 0, 0, 1)
+light_bake_mode = 1
+
+[node name="spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0481539, 3.63341, -4.28315)
+
+[node name="enemy point" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.751, 0.815, -4.736)
+
+[node name="triggers" type="Node3D" parent="."]
+
+[node name="trigger" type="Area3D" parent="triggers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -6)
+script = ExtResource("2_d6dwr")
+oneshot = true
+is_triggered = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="triggers/trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.975041, -0.345287, 1.37946)
+shape = SubResource("BoxShape3D_fsloj")
+
+[node name="Area3D" type="Area3D" parent="triggers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.939, 8.72217, 0)
+script = SubResource("GDScript_x6pyb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="triggers/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+shape = SubResource("BoxShape3D_o6d0b")
+
+[node name="Area3D2" type="Area3D" parent="triggers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.84812, 4.60872, 0)
+script = SubResource("GDScript_u4ow3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="triggers/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.19286, -0.689585, -1.98941)
+shape = SubResource("BoxShape3D_0wmeo")
+
+[node name="objects" type="Node3D" parent="."]
+script = ExtResource("3_pyyfn")
+inworld = true
+
+[node name="npice" parent="objects" instance=ExtResource("6_hkgwp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3414, 1, -15.9232)
+text = "go through the door
+go through the door
+Âîçìîæíî, äà."
+
+[node name="gf-gen2" parent="objects" instance=ExtResource("4_aw1qp")]
+transform = Transform3D(0.367052, -4.29905e-09, -0.0983515, -0.0983515, -1.60443e-08, -0.367052, -2.3406e-17, 0.38, -1.66103e-08, -5.92002, 1.29478, 3.76301)
+x_range = 30.0
+use_collision = true
+visualize_when_spawned = true
+current_func_index = 2
+
+[node name="gf-gen3" parent="objects" instance=ExtResource("4_aw1qp")]
+transform = Transform3D(-0.32909, -8.30513e-09, -0.19, -0.19, 1.43849e-08, 0.32909, 5.61175e-16, 0.38, -1.66103e-08, 2.07998, 1.29478, -2.23699)
+x_range = 30.0
+use_collision = true
+visualize_when_spawned = true
+current_func_index = 2
+
+[node name="gf-gen4" parent="objects" instance=ExtResource("4_aw1qp")]
+transform = Transform3D(0.38, 0, 0, 0, -1.66103e-08, -0.38, 0, 0.38, -1.66103e-08, 0, 0, 0)
+script = SubResource("GDScript_v50i1")
+x_range = 30.0
+resolution = 10
+use_collision = true
+visualize_when_spawned = true
+current_func_index = 5
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="objects/gf-gen4"]
+transform = Transform3D(2.63158, 0, 0, 0, 2.63158, 0, 0, 0, 2.63158, 0, -1.1503e-07, -2.63158)
+amount = 50
+lifetime = 100.0
+preprocess = 64.0
+speed_scale = 0.99
+randomness = 1.0
+fixed_fps = 60
+transform_align = 2
+trail_lifetime = 4.67
+process_material = SubResource("ParticleProcessMaterial_1n7jk")
+draw_pass_1 = ExtResource("8_vh065")
+
+[node name="gf-gen5" parent="objects" instance=ExtResource("4_aw1qp")]
+transform = Transform3D(0.38, 0, 0, 0, -1.66103e-08, -0.38, 0, 0.38, -1.66103e-08, -14.6828, 2.29478, 5.76301)
+script = SubResource("GDScript_v50i1")
+use_collision = true
+visualize_when_spawned = true
+current_func_index = 2
+
+[node name="gf-gen6" parent="objects" instance=ExtResource("4_aw1qp")]
+transform = Transform3D(0.38, 0, 0, 0, -1.66103e-08, -0.38, 0, 0.38, -1.66103e-08, 0, -1, 0)
+x_range = 35.0
+resolution = 500
+use_collision = true
+time_for_point = 0.01
+visualize_when_spawned = true
+current_func_index = 6
+
+[node name="RigidBody3D4" parent="objects" instance=ExtResource("6_hkgwp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.381612, 1.25687, -4.547)
+text = "hello"
+item_name = "item"
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -49.9829, 0)
+use_collision = true
+size = Vector3(3, 100, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 4)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, 5)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 1, 5)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.866025, -0.353553, -0.353553, 0.5, 0.612372, 0.612372, 0, -0.707107, 0.707107, 7, -1, -2)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2, -2)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 4, 3.61635)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 4, 7.60999)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 2, -2)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -1, -16)
+use_collision = true
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.612372, 0.612372, 0.5, 0.353553, -0.353553, 0.866025, 18, -4, -16)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.612372, 0.612372, 0.5, 0.353553, -0.353553, 0.866025, 18, -6, -16)
+use_collision = true
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.612372, 0.612372, 0.5, 0.353553, -0.353553, 0.866025, 18, -1, -2)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.612372, 0.612372, 0.5, 0.353553, -0.353553, 0.866025, 18, -3, -2)
+use_collision = true
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.612372, 0.612372, 0.5, 0.353553, -0.353553, 0.866025, 7, -4, -2)
+use_collision = true
+material = SubResource("StandardMaterial3D_mob5o")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.14, 1.635, 6.22)
+script = SubResource("GDScript_bqoah")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_3g0jw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_cliia")
+mesh = SubResource("SphereMesh_4qn5o")
+
+[node name="Node3D" parent="." instance=ExtResource("6_nrnfv")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.6022, 1.96906, 5.58474)
+
+[node name="StaticBody3D2" parent="Node3D/rotor/Door" index="0"]
+code = "end"
+author = "the end"
+door_number = "9999"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_shm6v")
+autoplay = true
+bus = &"music"
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(0.212176, 0, 0.145, 0, 0.455, 0, -0.1225, 0, 0.251147, -61.397, 11.545, 5.27701)
+
+[node name="Area3D" type="Area3D" parent="Node3D2"]
+script = SubResource("GDScript_odetv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Area3D"]
+shape = SubResource("BoxShape3D_odetv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2"]
+visible = false
+mesh = SubResource("BoxMesh_shm6v")
+surface_material_override/0 = SubResource("StandardMaterial3D_odetv")
+
+[connection signal="body_exited" from="triggers/trigger" to="." method="_on_trigger_body_exited"]
+[connection signal="exited" from="triggers/trigger" to="." method="_on_trigger_exited"]
+[connection signal="body_entered" from="triggers/Area3D" to="triggers/Area3D" method="_on_body_entered"]
+[connection signal="body_entered" from="triggers/Area3D2" to="triggers/Area3D2" method="_on_body_entered"]
+[connection signal="child_entered_tree" from="objects" to="." method="_on_objects_child_entered_tree"]
+[connection signal="finished" from="AudioStreamPlayer3D" to="." method="_on_audio_stream_player_3d_finished"]
+[connection signal="body_entered" from="Node3D2/Area3D" to="Node3D2/Area3D" method="_on_body_entered"]
+
+[editable path="objects/gf-gen5"]
+[editable path="Node3D"]
+[editable path="Node3D/rotor/cdoor1"]
+[editable path="Node3D/rotor/cdoor2"]

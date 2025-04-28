@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddmbn615mn58k"]
+
+[ext_resource type="Script" uid="uid://dq65wuarg82d0" path="res://scripts/splash_screens.gd" id="1_qm7df"]
+[ext_resource type="Texture2D" uid="uid://c75rkasxtxx61" path="res://textures/icons/unity2.jpeg" id="2_4qd4p"]
+[ext_resource type="Texture2D" uid="uid://e0ma0gjsgeh0" path="res://textures/icons/unreal.jpg" id="4_qno6q"]
+[ext_resource type="Texture2D" uid="uid://jk0scb67jqy6" path="res://textures/icons/godot.png" id="5_u1k5t"]
+
+[node name="splash_screens" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qm7df")
+textures = Array[CompressedTexture2D]([ExtResource("2_4qd4p"), ExtResource("4_qno6q"), ExtResource("5_u1k5t")])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4qd4p")
+expand_mode = 1

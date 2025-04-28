@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://du15xtjhwf3xv"]
+
+[ext_resource type="Script" uid="uid://c1d0h2826dmyd" path="res://scripts/graph_gen.gd" id="1_1e53n"]
+[ext_resource type="Material" uid="uid://dlryn5wgq7nec" path="res://materials/gf_gen_draw_point.tres" id="2_c8np6"]
+
+[sub_resource type="Curve3D" id="Curve3D_p1hff"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ypy3k"]
+albedo_color = Color(0.955636, 0.0375474, 0.862023, 1)
+emission_enabled = true
+emission = Color(0.162732, 0.973788, 0.132321, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_j82rh"]
+lightmap_size_hint = Vector2i(7, 7)
+
+[node name="graph_gen" type="Node3D"]
+script = ExtResource("1_1e53n")
+x_range = 10.0
+resolution = 50
+random_color = true
+current_func_index = 255
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_p1hff")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.192979)
+layers = 2
+material_override = SubResource("StandardMaterial3D_ypy3k")
+polygon = PackedVector2Array(0.0615708, -0.00237441, 0.175544, 0.171055, 0.315759, 0.0430471, 0.221036, -0.132803)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 10.3
+path_rotation = 2
+path_rotation_accurate = false
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+smooth_faces = true
+
+[node name="draw_point" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 10, -5.44021, 0)
+visible = false
+material_override = ExtResource("2_c8np6")
+mesh = SubResource("QuadMesh_j82rh")

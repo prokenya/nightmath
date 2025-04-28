@@ -1,0 +1,173 @@
+[gd_scene load_steps=14 format=3 uid="uid://c742yqv2wjpxo"]
+
+[ext_resource type="Script" uid="uid://jqcj84x0t4lt" path="res://scripts/world_5-extended.gd" id="1_58q8g"]
+[ext_resource type="Shader" uid="uid://c1vvtcd08d8cp" path="res://shaders/world2.gdshader" id="2_7c0s8"]
+[ext_resource type="Script" uid="uid://b6ngkoi6mmsqh" path="res://scripts/object_spawner.gd" id="2_yeoqy"]
+[ext_resource type="PackedScene" uid="uid://be5rme452nfqh" path="res://scen/assets/wall_4_low.tscn" id="3_yeoqy"]
+[ext_resource type="PackedScene" uid="uid://baj3ehy1weuwh" path="res://scen/items/axe.tscn" id="4_58q8g"]
+[ext_resource type="PackedScene" uid="uid://nevcrrstn13a" path="res://scen/assets/wall_4_win_low.tscn" id="5_rt4lb"]
+[ext_resource type="Script" uid="uid://cx1epsfgv35mu" path="res://scripts/return_items.gd" id="7_6r0iw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o0gx8"]
+shader = ExtResource("2_7c0s8")
+shader_parameter/vertical_sections = 21
+shader_parameter/star_size = 0.02
+shader_parameter/star_falloff = 4.0
+shader_parameter/margin = 0.05
+shader_parameter/warp_intensity = 0.03
+
+[sub_resource type="Sky" id="Sky_ok25e"]
+sky_material = SubResource("ShaderMaterial_o0gx8")
+
+[sub_resource type="Environment" id="Environment_rt4lb"]
+background_mode = 2
+sky = SubResource("Sky_ok25e")
+ambient_light_source = 2
+ambient_light_color = Color(0.412152, 0.412152, 0.412152, 1)
+tonemap_mode = 1
+tonemap_exposure = 1.15
+glow_normalized = true
+glow_strength = 1.59
+fog_light_color = Color(0.223529, 0, 0, 1)
+fog_light_energy = 16.0
+fog_sky_affect = 0.421
+fog_height_density = 0.3368
+adjustment_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qvg86"]
+size = Vector3(1000, 100, 1000)
+
+[sub_resource type="GDScript" id="GDScript_6r0iw"]
+script/source = "extends StaticBody3D
+var item_id = -3
+func open():
+	Event.emit_signal(\"start_dialogue\",\"mono\",false)
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6r0iw"]
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_58q8g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rt4lb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 5.00503, -8)
+visible = false
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.0
+light_bake_mode = 1
+
+[node name="spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="enemy point" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.252675, -20)
+
+[node name="objects" type="Node3D" parent="."]
+script = ExtResource("2_yeoqy")
+inworld = true
+
+[node name="RigidBody3D" parent="objects" instance=ExtResource("4_58q8g")]
+transform = Transform3D(-3.78552e-08, 0.866025, 0.5, -1, -4.37114e-08, 0, 2.18557e-08, -0.5, 0.866025, 1, 1, -1)
+
+[node name="level" type="Node3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="wall4-low" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.075, 1, 1)
+
+[node name="wall4-low2" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.075, 0, 1)
+
+[node name="wall4-low3" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.925, 0, 1)
+
+[node name="wall4-low4" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.925, 1, 1)
+
+[node name="wall4-low5" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.075, 1, -3)
+
+[node name="wall4-low6" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.075, 0, -3)
+
+[node name="wall4-low7" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.925, 0, -3)
+
+[node name="wall4-low9" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.075, 1, -7)
+
+[node name="wall4-low10" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.075, 0, -7)
+
+[node name="wall4-low11" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.925, 0, -7)
+
+[node name="wall4-low12" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.925, 1, -7)
+
+[node name="wall4-low13" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.925, 1, 3)
+
+[node name="wall4-low14" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.075, 1, -11)
+
+[node name="wall4-low15" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.075, 0, -11)
+
+[node name="wall4-low16" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.925, 0, -11)
+
+[node name="wall4-low17" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.925, 1, -11)
+
+[node name="wall4-low18" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.075, 0, -15)
+
+[node name="wall4-low19" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.925, 0, -15)
+
+[node name="wall4-low20" parent="level" instance=ExtResource("3_yeoqy")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.925, 0, -19)
+
+[node name="wall4-win-low" parent="level" instance=ExtResource("5_rt4lb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.925, 1.0039, -3)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 2.735)
+light_energy = 6.285
+spot_range = 19.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1, 1, -2)
+light_color = Color(1, 0.853302, 0.706459, 1)
+light_negative = true
+
+[node name="NavigationLink3D" type="NavigationLink3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.173353, -20)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0)
+collision_layer = 3855
+collision_mask = 3855
+collision_priority = 100.0
+monitorable = false
+priority = 1000
+script = ExtResource("7_6r0iw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_qvg86")
+
+[node name="Area3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -20)
+collision_layer = 8388608
+collision_mask = 0
+script = SubResource("GDScript_6r0iw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+shape = SubResource("CapsuleShape3D_6r0iw")
+
+[connection signal="child_entered_tree" from="objects" to="." method="_on_objects_child_entered_tree"]
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

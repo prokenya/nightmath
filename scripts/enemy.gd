@@ -308,9 +308,6 @@ func die(player:Node,dm,epoint) -> bool:
 			Event.OSalert(Event.data.in_code_localisation[Event.userdata.locale][3] + " " + Event.player_name,"LEo")
 			await get_tree().create_timer(1).timeout
 			Event.play_Gsfx(GORE_WET_4)
-			if Event.userdata.fun_mode:
-				Event.world.switch_scene(false,"res://scen/levels/world3.tscn",true)
-				return true
 			await get_tree().create_timer(1.3).timeout
 			Event.world.switch_scene(false,"res://scen/levels/final.tscn",true,0.6,false)
 			return true

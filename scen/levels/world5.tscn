@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://be5rme452nfqh" path="res://scen/assets/wall_4_low.tscn" id="3_yeoqy"]
 [ext_resource type="PackedScene" uid="uid://baj3ehy1weuwh" path="res://scen/items/axe.tscn" id="4_58q8g"]
 [ext_resource type="PackedScene" uid="uid://nevcrrstn13a" path="res://scen/assets/wall_4_win_low.tscn" id="5_rt4lb"]
-[ext_resource type="Script" uid="uid://cx1epsfgv35mu" path="res://scripts/return_items.gd" id="7_6r0iw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0gx8"]
 shader = ExtResource("2_7c0s8")
@@ -33,6 +32,20 @@ fog_light_energy = 16.0
 fog_sky_affect = 0.421
 fog_height_density = 0.3368
 adjustment_enabled = true
+
+[sub_resource type="GDScript" id="GDScript_58q8g"]
+script/source = "extends Area3D
+
+func _on_body_entered(body: PhysicsBody3D) -> void:
+	if body.is_in_group(\"player\"):
+		if Event.userdata.fun_mode:
+			Event.world.switch_scene(false,\"res://scen/levels/final.tscn\",true,0.6,false)
+		else:
+			Event.world.switch_scene(false,\"res://scen/levels/final.tscn\",false)
+	else:
+		body.linear_velocity = Vector3.ZERO
+		body.global_position = Vector3(1,1,-2)
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvg86"]
 size = Vector3(1000, 100, 1000)
@@ -155,7 +168,7 @@ collision_mask = 3855
 collision_priority = 100.0
 monitorable = false
 priority = 1000
-script = ExtResource("7_6r0iw")
+script = SubResource("GDScript_58q8g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_qvg86")
